@@ -10,6 +10,12 @@ CREATE TABLE GameSetup (
     PRIMARY KEY (gameSetupID)
 );
 
+INSERT INTO GameSetup (expansionsUsed, gameBoard, buildScoreTile)
+VALUES ('Invaders From Afar', 'Modular', 'Buildings On Villages'),
+(NULL, 'Standard', 'Lakes Adjacent to Buildings');
+
+SELECT * FROM GameSetup;
+
 DROP TABLE IF EXISTS Player;
 CREATE TABLE Player (
     playerID        INT             NOT NULL AUTO_INCREMENT,
@@ -18,20 +24,34 @@ CREATE TABLE Player (
     PRIMARY KEY (playerID)
 );
 
+INSERT INTO Player (playerName)
+VALUES ('Henry'),
+('Nico'),
+('Joshua'),
+('Noah'),
+('Claire'),
+('Sophie');
+
+SELECT * FROM Player;
+
 DROP TABLE IF EXISTS Game;
 CREATE TABLE Game (
     gameID          INT             NOT NULL AUTO_INCREMENT,
     gameSetupID     INT             NOT NULL,
     gameDate        DATETIME,
     
-    PRIMARY KEY (gameID)
+    PRIMARY KEY (gameID),
+    FOREIGN KEY (gameSetupID) REFERENCES GameSetup(gameSetupID)
 );
+
+INSERT INTO Game (gameSetupID, gameDate)
+VALUES (0, '20230411 7:00:00 PM');
 
 DROP TABLE IF EXISTS PlayerGameIntersection;
 CREATE TABLE PlayerGameIntersection (
     playerID        INT             NOT NULL,
     gameID          INT             NOT NULL,
-    
+
     PRIMARY KEY (playerID, gameID),
     FOREIGN KEY (playerID) REFERENCES Player(playerID),
     FOREIGN KEY (gameID) REFERENCES Game(gameID)
@@ -49,7 +69,7 @@ CREATE TABLE GameFaction (
     faction             varchar(50),
     playerBoard         varchar(50),
     resources           SMALLINT,
-    
+
     PRIMARY KEY (gameFactionID),
     FOREIGN KEY (playerID) REFERENCES Player(playerID),
     FOREIGN KEY (gameID) REFERENCES Game(gameID)
