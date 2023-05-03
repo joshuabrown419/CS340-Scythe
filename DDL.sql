@@ -45,7 +45,9 @@ CREATE TABLE Game (
 );
 
 INSERT INTO Game (gameSetupID, gameDate)
-VALUES (0, '20230411 7:00:00 PM');
+VALUES (0, '20230411');
+
+SELECT * FROM Game;
 
 DROP TABLE IF EXISTS PlayerGameIntersection;
 CREATE TABLE PlayerGameIntersection (
@@ -57,12 +59,22 @@ CREATE TABLE PlayerGameIntersection (
     FOREIGN KEY (gameID) REFERENCES Game(gameID)
 );
 
+INSERT INTO PlayerGameIntersection (playerID, gameID)
+VALUES (1, 1),
+(2, 2),
+(3, 3),
+(4, 4),
+(5, 5),
+(6, 6);
+
+SELECT * FROM PlayerGameIntersection;
+
 DROP TABLE IF EXISTS GameFaction;
 CREATE TABLE GameFaction (
     gameFactionID       INT             NOT NULL AUTO_INCREMENT,
     playerID            INT             NOT NULL,
     gameID              INT             NOT NULL,
-    endingCoints        SMALLINT,
+    endingCoins        SMALLINT,
     endingPopularity    TINYINT,
     starsPlaced         TINYINT,
     tilesControlled     TINYINT,
@@ -74,3 +86,12 @@ CREATE TABLE GameFaction (
     FOREIGN KEY (playerID) REFERENCES Player(playerID),
     FOREIGN KEY (gameID) REFERENCES Game(gameID)
 );
+
+INSERT INTO GameFaction (playerID, gameID, endingCoins, endingPopularity, starsPlaced, tilesControlled, faction, playerBoard, resources)
+VALUES (1, 1, 15, 13, 6, 9, 'Rusviet Union', 'Agriculture', 2),
+(2, 1, 15, 11, 4, 3, 'Saxony Empire', 'Military', 5),
+(3, 1, 20, 0, 4, 9, 'Nordic Kingdoms', 'Industrial', 6),
+(4, 1, 16, 13, 3, 6, 'Crimean Khanate', 'Innovative', 3),
+(5, 1, 1, 7, 1, 6, 'Clan Albion', 'Mechanical', 5);
+
+SELECT * FROM GameFaction;
