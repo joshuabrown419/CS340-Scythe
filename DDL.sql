@@ -62,11 +62,11 @@ CREATE TABLE PlayerGameIntersection (
 
 INSERT INTO PlayerGameIntersection (playerID, gameID)
 VALUES (1, 1),
-(2, 2),
-(3, 3),
-(4, 4),
-(5, 5),
-(6, 6);
+(2, 1),
+(3, 1),
+(4, 1),
+(5, 1),
+(6, 1);
 
 SELECT * FROM PlayerGameIntersection;
 
