@@ -1,0 +1,36 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>{{pageTitle}}</title>
+
+        <link rel="stylesheet" href="/style.css">
+
+        <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
+
+        <script src="/index.js" charset="utf-8" defer></script>
+
+    </head>
+
+    <body>
+
+        <header>
+
+        <h1 class="site-title" id="home-link"><a href="#">{{pageTitle}}</a></h1>
+
+        </header>
+
+        <div class="page-box">
+            <div class="sidebar">
+                <div class="page-link" id="game-link">Game statistics</div>
+                <div class="page-link" id="factions-link">Faction statistics</div>
+                <div class="page-link" id="player-link">Player statistics</div>
+                <div class="page-link" id="insert-link">Insert game</div>
+
+            </div>
+            <div class="content">
+                {{{body}}}
+            </div>
+        </div>
+
+    </body>
+</html>
