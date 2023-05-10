@@ -3,11 +3,11 @@ SET FOREIGN_KEY_CHECKS=0;
 DROP TABLE IF EXISTS GameSetup;
 CREATE TABLE GameSetup (
     gameSetupID     INT             NOT NULL AUTO_INCREMENT,
-    expansionsUsed  varchar(200)    NOT NULL,
+    expansionsUsed  varchar(200),
     gameBoard       varchar(50)     NOT NULL,
     buildScoreTile  varchar(50)     NOT NULL,
 
-    PRIMARY KEY (gameSetupID)
+    PRIMARY KEY (gameSetupID),
     CONSTRAINT uniqueSetup UNIQUE (expansionsUsed, gameBoard, buildScoreTile)
 );
 
@@ -56,8 +56,8 @@ CREATE TABLE PlayerGameIntersection (
     gameID          INT             NOT NULL,
 
     PRIMARY KEY (playerID, gameID),
-    FOREIGN KEY (playerID) REFERENCES Player(playerID),
-    FOREIGN KEY (gameID) REFERENCES Game(gameID)
+    FOREIGN KEY (playerID) REFERENCES Player(playerID) ON DELETE CASCADE,
+    FOREIGN KEY (gameID) REFERENCES Game(gameID) ON DELETE CASCADE
 );
 
 INSERT INTO PlayerGameIntersection (playerID, gameID)
@@ -73,9 +73,9 @@ SELECT * FROM PlayerGameIntersection;
 DROP TABLE IF EXISTS GameFaction;
 CREATE TABLE GameFaction (
     gameFactionID       INT             NOT NULL AUTO_INCREMENT,
-    playerID            INT             NOT NULL,
+    playerID            INT,
     gameID              INT             NOT NULL,
-    endingCoins        SMALLINT,
+    endingCoins         SMALLINT,
     endingPopularity    TINYINT,
     starsPlaced         TINYINT,
     tilesControlled     TINYINT,
@@ -85,7 +85,7 @@ CREATE TABLE GameFaction (
 
     PRIMARY KEY (gameFactionID),
     FOREIGN KEY (playerID) REFERENCES Player(playerID),
-    FOREIGN KEY (gameID) REFERENCES Game(gameID)
+    FOREIGN KEY (gameID) REFERENCES Game(gameID) ON DELETE CASCADE
 );
 
 INSERT INTO GameFaction (playerID, gameID, endingCoins, endingPopularity, starsPlaced, tilesControlled, faction, playerBoard, resources)
@@ -96,3 +96,5 @@ VALUES (1, 1, 15, 13, 6, 9, 'Rusviet Union', 'Agriculture', 2),
 (5, 1, 1, 7, 1, 6, 'Clan Albion', 'Mechanical', 5);
 
 SELECT * FROM GameFaction;
+
+SET FOREIGN_KEY_CHECKS=1;
