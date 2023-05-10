@@ -2,6 +2,7 @@ var path = require('path');
 var express = require('express');
 var expresshbs = require('express-handlebars')
 const { nextTick } = require('process');
+var playerData = require('./playerData.json');
 
 var app = express();
 var port = process.env.PORT || 3988;
@@ -34,7 +35,8 @@ app.get('/factions', function (req, res) {
 });
 app.get('/insert', function (req, res) {
   res.status(200).render('insert', {
-    pageTitle: "Insert Scythe Game:"
+    pageTitle: "Insert Scythe Game:",
+    playerCount: playerData
   })
 });
 

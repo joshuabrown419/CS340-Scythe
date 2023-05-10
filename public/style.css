@@ -48,6 +48,9 @@ header a {
     font-weight: 50;
     flex: 1;
 }
+.page-link:hover{
+    color: white;
+}
 
 /*Make tables look moderately interesting*/
 table{
@@ -60,4 +63,30 @@ table, th, td {
 th, td{
     
     background-color: white;
+}
+
+
+/*inside content box, for the insert players tab*/
+.insert-game-box{
+    flex: 5
+}
+.game-type{
+    width: 100%;
+    margin: 1%;
+    outline: 1px black solid;
+    vertical-align: top;
+    display: inline-flex;
+    align-items: center;
+}
+
+.game-settings{
+    flex:1;
+}
+
+.player-insert{
+    margin: 1%;
+    outline: 1px black solid;
+    vertical-align: top;
+    display: inline-block;
+    align-items: center;
 }
