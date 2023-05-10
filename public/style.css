@@ -49,5 +49,15 @@ header a {
     flex: 1;
 }
 
-
-
+/*Make tables look moderately interesting*/
+table{
+    margin: 3px;
+    background-color: black;
+}
+table, th, td {
+    border: 1px solid black;
+}
+th, td{
+    
+    background-color: white;
+}
