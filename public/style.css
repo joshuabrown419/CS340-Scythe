@@ -1,0 +1,92 @@
+body {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    margin: 0;
+}
+
+/*Tittle and top of page header*/
+header {
+    background-color: rgb(60, 60, 60);
+    display: flex;
+    align-items: center;
+    position: relative;
+    height: 20%;
+}
+
+header a {
+    text-decoration: none;
+    color: rgb(255, 255, 255);
+}
+.site-title {
+    font-size: 80px;
+    font-weight: 100;
+    margin: 0 0 0 20px;
+    padding-top: 30px;
+}
+
+/*The rest of the page display information*/
+.page-box{
+    height: 80%;
+    display: flex;
+}
+/* content of each individual page stored here*/
+.content {
+    margin:2%;
+    flex:4;
+}
+/*Links on the side of the screen. inside the page box*/
+.sidebar {
+    background-color: rgb(103,69,48);
+    flex: 1;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}
+.page-link{
+    margin-top: 20%;
+    color: rgb(175, 175, 175);
+    font-size: 30px;
+    font-weight: 50;
+    flex: 1;
+}
+.page-link:hover{
+    color: white;
+}
+
+/*Make tables look moderately interesting*/
+table{
+    margin: 3px;
+    background-color: black;
+}
+table, th, td {
+    border: 1px solid black;
+}
+th, td{
+    
+    background-color: white;
+}
+
+
+/*inside content box, for the insert players tab*/
+.insert-game-box{
+    flex: 5
+}
+.game-type{
+    width: 100%;
+    margin: 1%;
+    outline: 1px black solid;
+    vertical-align: top;
+    display: inline-flex;
+    align-items: center;
+}
+
+.game-settings{
+    flex:1;
+}
+
+.player-insert{
+    margin: 1%;
+    outline: 1px black solid;
+    vertical-align: top;
+    display: inline-block;
+    align-items: center;
+}
