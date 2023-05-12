@@ -1,6 +1,6 @@
 //click links to take you from page to page
 
-var pageURL = "http://localhost:3988/"
+var pageURL = "/"
 
 var homePage = document.getElementById("home-link") 
 
