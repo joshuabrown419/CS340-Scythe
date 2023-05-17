@@ -34,7 +34,7 @@ app.get('/factions', function (req, res) {
     })
 });
 app.get('/board', function (req, res) {
-  res.status(200).render('factions', {
+  res.status(200).render('board', {
     pageTitle: "Scythe Board Setup"
   })
 });
