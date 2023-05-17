@@ -35,7 +35,7 @@ insertPage.addEventListener('click', function(){
 for (var i = 1; i <= 7; i++){
     var classButton = document.getElementById("toggle-player-"+i)
     console.log("classButton: "+ classButton)
-    var hidden = false
+    let hidden = false
     const textBox = document.getElementById("player-"+i+"-text")
     classButton.addEventListener('click', function(){
         console.log("hidden: "+ hidden)
