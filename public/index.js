@@ -41,7 +41,7 @@ for (var i = 1; i < 7; i++){
         var textBox = document.getElementById("player-"+i+"-text")
         console.log("hidden: "+ hidden)
         if (hidden){
-            textBox.remove("hidden")
+            textBox.removeAttribute("hidden")
             hidden = false
         }else{
             textBox.setAttribute("hidden", "true")
