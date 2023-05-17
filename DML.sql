@@ -37,7 +37,7 @@ WHERE gameID = :selected_game_id;
 -- Select the GameSetup for a game
 SELECT expansionsUsed, gameBoard, buildScoreTile
 FROM GameSetup
-WHERE gameSetupID = (SELECT gameSetupdID FROM Game WHERE gameID = selected_game_id);
+WHERE gameSetupID = (SELECT gameSetupdID FROM Game WHERE gameID = :selected_game_id);
 
 -- Select all GameSetups
 SELECT *
@@ -58,6 +58,10 @@ VALUES (SELECT playerID FROM Player WHERE playerName = :selected_player_name, :g
 INSERT INTO GameFaction (playerID, gameID, endingCoins, endingPopularity, starsPlaced, tilesControlled, faction, playerBoard, resources)
 VALUES (SELECT playerID FROM Player WHERE playerName = :selected_player_name, :game_id, :ending_coins, :ending_popularity, :stars_placed, :tiles_controlled, :faction, :player_board, :resources);
 
+-- Add participation for a player who does not have an account
+INSERT INTO GameFaction (playerID, gameID, endingCoins, endingPopularity, starsPlaced, tilesControlled, faction, playerBoard, resources)
+VALUES (NULL, :game_id, :ending_coins, :ending_popularity, :stars_placed, tiles_controlled, :faction, :player_board, :resources)
+
 -- Add a new setup
 INSERT INTO GameSetup (expansionsUsed, gameBoard, buildScoreTile)
 VALUES (expansions_used, game_board, build_score_tile);
@@ -73,3 +77,22 @@ WHERE gameID = :game_id_from_update;
 -- Update a game setup
 UPDATE GameSetup SET expansionsUsed = :new_expansions_used, gameBoard = :new_game_board, buildScoreTile = :new_build_score_tile
 WHERE gameSetupID = :game_setup_id_from_update;
+
+-- Delete a player
+DELETE FROM Player
+WHERE playerID = :player_id
+
+UPDATE GameFaction SET playerID = NULL
+WHERE playerID = :player_id
+
+-- Delete a game
+DELETE FROM Game
+WHERE gameID = :game_id
+
+-- Delete a game setup
+DELETE FROM GameSetup
+WHERE gameSetupID = :game_setup_id
+
+-- Delete a game faction
+DELETE FROM GameFaction
+WHERE gameFactionID = :game_faction_id
