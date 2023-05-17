@@ -32,9 +32,9 @@ insertPage.addEventListener('click', function(){
 
 //buttons
 
-for (var i = 0; i < 7; i++){
+for (var i = 1; i < 7; i++){
     var classButton = document.getElementById("toggle-player-"+i)
-    var textBox = document.getElementById("player-"+i+"text")
+    var textBox = document.getElementById("player-"+i+"-text")
 
     let hidden = textBox.getAttribute("hidden");
 
