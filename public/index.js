@@ -39,10 +39,9 @@ for (var i = 1; i < 7; i++){
     
     classButton.addEventListener('click', function(){
         var textBox = document.getElementById("player-"+i+"-text")
-
         console.log("hidden: "+ hidden)
         if (hidden){
-            textBox.setAttribute("hidden", "false")
+            textBox.remove("hidden")
             hidden = false
         }else{
             textBox.setAttribute("hidden", "true")
