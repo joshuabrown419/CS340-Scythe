@@ -64,7 +64,17 @@ th, td{
     
     background-color: white;
 }
-
+/*Delete rows in the tables*/
+.delete-row{
+    background-color: rgb(193, 0, 0);
+    color: black;
+}
+.delete-row:hover{
+    background-color: rgb(255, 0, 0);
+}
+.delete{
+    background-color: rgb(193, 0, 0);
+}
 
 /*inside content box, for the insert players tab*/
 .insert-game-box{
