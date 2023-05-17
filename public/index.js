@@ -34,15 +34,19 @@ insertPage.addEventListener('click', function(){
 
 for (var i = 1; i < 7; i++){
     var classButton = document.getElementById("toggle-player-"+i)
-    var textBox = document.getElementById("player-"+i+"-text")
+    console.log("classButton: "+ classButton)
 
-    let hidden = textBox.getAttribute("hidden");
+    var textBox = document.getElementById("player-"+i+"-text")
+    console.log("textBox: "+ textBox)
+
+    var hidden = textBox.getAttribute("hidden");
+    console.log("hidden: "+ hidden)
 
     classButton.addEventListener('click', function(){
         if (hidden){
-            textBox.removeAttribute("hidden")
+            textBox.removeAttribute("hidden", "false")
         }else{
-            textBox.setAttribute("hidden", "hidden")
+            textBox.setAttribute("hidden", "true")
         }
     })
 }
