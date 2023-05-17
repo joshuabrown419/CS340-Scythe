@@ -14,7 +14,6 @@ var insertPage = document.getElementById("insert-link")
 homePage.addEventListener('click', function(){
     window.location.href = pageURL
 })
-
 gamePage.addEventListener('click', function(){
     window.location.href = pageURL+"game"
 })
@@ -30,3 +29,20 @@ boardPage.addEventListener('click', function(){
 insertPage.addEventListener('click', function(){
     window.location.href = pageURL+"insert"
 })
+
+//buttons
+
+for (var i = 0; i < 7; i++){
+    var classButton = document.getElementById("toggle-player-"+i)
+    var textBox = document.getElementById("player-"+i+"text")
+
+    let hidden = textBox.getAttribute("hidden");
+
+    classButton.addEventListener('click', function(){
+        if (hidden){
+            textBox.removeAttribute("hidden")
+        }else{
+            textBox.setAttribute("hidden", "hidden")
+        }
+    })
+}
