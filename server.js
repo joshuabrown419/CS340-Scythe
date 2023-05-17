@@ -33,6 +33,11 @@ app.get('/factions', function (req, res) {
       pageTitle: "Scythe Faction Database"
     })
 });
+app.get('/board', function (req, res) {
+  res.status(200).render('factions', {
+    pageTitle: "Scythe Board Setup"
+  })
+});
 app.get('/insert', function (req, res) {
   res.status(200).render('insert', {
     pageTitle: "Insert Scythe Game:",
