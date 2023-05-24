@@ -66,7 +66,7 @@ app.get('/api', function(req, res) {
   
   if(req.query.name === 'Player') {
     if(req.query.operation === 'select') {
-      db.pool.query('SELECT playerID, playerName FROM Player;', function (err, result) {
+      db.pool.query("SELECT playerID, playerName, (SELECT COUNT(*) FROM PlayerGameIntersection WHERE Player.playerID = PlayerGameIntersection.playerID) AS gamesPlayed, (SELECT COUNT(*) FROM (SELECT playerID, MAX(endingCoins + endingPopularity + starsPlaced + tilesControlled + resources) FROM GameFaction GROUP BY gameID) a WHERE a.playerID = Player.playerID) AS gamesWon FROM Player;", function (err, result) {
         if (err) {
           console.log(err)
           res.sendStatus(404);

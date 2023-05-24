@@ -1,7 +1,12 @@
 -- Scythe data manipulation queries
 
 -- Select all the player names
-SELECT playerID, playerName FROM Player;
+SELECT
+playerID,
+playerName,
+(SELECT COUNT(*) FROM PlayerGameIntersection WHERE Player.playerID = PlayerGameIntersection.playerID) AS gamesPlayed,
+(SELECT COUNT(*) FROM (SELECT playerID, MAX(endingCoins + endingPopularity + starsPlaced + tilesControlled + resources) FROM GameFaction GROUP BY gameID) a WHERE a.playerID = Player.playerID) AS gamesWon
+FROM Player;
 
 -- Select a player by name
 SELECT playerID FROM Player WHERE playerName= :selected_player_name;
