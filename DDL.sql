@@ -84,7 +84,7 @@ CREATE TABLE GameFaction (
     resources           SMALLINT,
 
     PRIMARY KEY (gameFactionID),
-    FOREIGN KEY (playerID) REFERENCES Player(playerID),
+    FOREIGN KEY (playerID) REFERENCES Player(playerID) ON DELETE SET NULL,
     FOREIGN KEY (gameID) REFERENCES Game(gameID) ON DELETE CASCADE
 );
 

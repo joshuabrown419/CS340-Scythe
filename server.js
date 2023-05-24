@@ -65,7 +65,7 @@ app.get('/api', function(req, res) {
   }
   
   if(req.query.name === 'Player') {
-    if(req.query.operation === 'select'){
+    if(req.query.operation === 'select') {
       db.pool.query('SELECT playerID, playerName FROM Player;', function (err, result) {
         if (err) {
           console.log(err)
@@ -73,6 +73,21 @@ app.get('/api', function(req, res) {
           return;
         }
         res.json(result);
+      });
+    } else if(req.query.operation === 'delete') {
+      if(!req.query.id) {
+        res.sendStatus(404);
+        return;
+      }
+      
+      db.pool.query('DELETE FROM Player WHERE playerID = ' + req.query.id, function(err, result) {
+        if (err) {
+          console.log(err)
+          res.sendStatus(404);
+          return;
+        }
+        
+        res.sendStatus(200)
       });
     }
   }
