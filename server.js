@@ -69,21 +69,36 @@ app.get('/api', function(req, res) {
       db.pool.query("SELECT playerID, playerName, (SELECT COUNT(*) FROM PlayerGameIntersection WHERE Player.playerID = PlayerGameIntersection.playerID) AS gamesPlayed, (SELECT COUNT(*) FROM (SELECT playerID, MAX(endingCoins + endingPopularity + starsPlaced + tilesControlled + resources) FROM GameFaction GROUP BY gameID) a WHERE a.playerID = Player.playerID) AS gamesWon FROM Player;", function (err, result) {
         if (err) {
           console.log(err)
-          res.sendStatus(404);
+          res.sendStatus(400);
           return;
         }
         res.json(result);
       });
     } else if(req.query.operation === 'delete') {
       if(!req.query.id) {
-        res.sendStatus(404);
+        res.sendStatus(400);
         return;
       }
       
       db.pool.query('DELETE FROM Player WHERE playerID = ' + req.query.id, function(err, result) {
         if (err) {
           console.log(err)
-          res.sendStatus(404);
+          res.sendStatus(400);
+          return;
+        }
+        
+        res.sendStatus(200)
+      });
+    } else if(req.query.operation === 'insert') {
+      if(!req.query.playerName) {
+        res.sendStatus(400);
+        return;
+      }
+      
+      db.pool.query('INSERT INTO Player (playerName) VALUES (\"' + req.query.playerName + '\");', function(err, result) {
+        if(err) {
+          console.log(err)
+          res.sendStatus(400);
           return;
         }
         
