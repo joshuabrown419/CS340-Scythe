@@ -1,3 +1,5 @@
+<script src="/player.js" charset="utf-8" defer></script>
+
 <div class="page-title">Player win rates:</div>
 <table>
     <tr>
@@ -7,25 +9,7 @@
         <th>Games Won</th>
         <th class="delete">Delete</th>
     </tr>
-    <tr>
-        <th> - </th>
-        <th> </th>
-        <th> </th>
-        <th> </th>
-        <th class="delete-row"><button type="button">Delete</button></th>
-    </tr>
-   <tr>
-        <th> - </th>
-        <th> </th>
-        <th> </th>
-        <th> </th>
-        <th class="delete-row"><button type="button">Delete</button></th>
-    </tr>
-    <tr>
-        <th> - </th>
-        <th> </th>
-        <th> </th>
-        <th> </th>
-        <th class="delete-row"><button type="button">Delete</button></th>
-    </tr>
+    {{#each playerList}}
+        {{>playerrows playerID = playerID, playerName = playerName, playerGamesPlayed= "", playerGamesWon= }}
+    {{/each}}
 </table>
