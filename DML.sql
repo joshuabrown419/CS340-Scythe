@@ -1,7 +1,7 @@
 -- Scythe data manipulation queries
 
 -- Select all the player names
-SELECT playerName FROM Player;
+SELECT playerID, playerName FROM Player;
 
 -- Select a player by name
 SELECT playerID FROM Player WHERE playerName= :selected_player_name;
