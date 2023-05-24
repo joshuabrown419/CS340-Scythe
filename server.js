@@ -104,6 +104,13 @@ app.get('/api', function(req, res) {
         
         res.sendStatus(200)
       });
+    } else if(req.query.operation === 'update') {
+      if(!(req.query.id && req.query.playerName)) {
+        res.sendStatus(400);
+        return;
+      }
+      
+      db.pool.query('UPDATE Player SET playerName = \"' + req.query.playerName + '\"WHERE playerID = ' + req.query.id + ';')
     }
   }
 });
