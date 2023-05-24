@@ -110,7 +110,15 @@ app.get('/api', function(req, res) {
         return;
       }
       
-      db.pool.query('UPDATE Player SET playerName = \"' + req.query.playerName + '\"WHERE playerID = ' + req.query.id + ';')
+      db.pool.query('UPDATE Player SET playerName = \"' + req.query.playerName + '\"WHERE playerID = ' + req.query.id + ';', function(err, result) {
+        if(err) {
+          console.log(error);
+          res.sendStatus(400);
+          return;
+        }
+        
+        res.sendStatus(200);
+      })
     }
   }
 });
