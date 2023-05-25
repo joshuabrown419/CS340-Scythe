@@ -7,16 +7,38 @@ async function getPlayerData() {
 
 async function renderPlayerList() {
     const playerList = await getPlayerData();
-    const playerRowTemplate = document.getElementById("playerRowTemplate").innerHTML;
+
+    // const playerRowTemplate = document.getElementById("playerRowTemplate").innerHTML;
     const playerTableBody = document.getElementById("playerTableBody");
 
-    const template = Handlebars.compile(playerRowTemplate);
+    // console.log(playerRowTemplate)
+    console.log(playerTableBody)
+
 
     playerList.forEach(player => {
-        console.log(player.playerName)
-        const playerRow = template({ playerIDDisplay: player.playerID, playerNameDisplay: player.playerName, playerGamesPlayedDisplay:player.gamesPlayed, playerGamesWonDisplay:player.gamesWon}); // Pass the player object as { player: player }
-        playerTableBody.innerHTML += playerRow;
-    });
+        // const playerRow = Handlebars.compile(playerRowTemplate)(player.playerID);
+        
+        // console.log(playerRow)
+        // playerTableBody.innerHTML += playerRow;
+
+        // const playerIDColumn = document.getElementsByClassName("playerID")
+        // const thisPlayerID = playerIDColumn.
+
+        // console.log("playerIdSet: "+playerIdSet)
+        // console.log("playerIdSet.innerHTML: "+playerIdSet.innerHTML)
+        
+        playerTableBody.innerHTML += 
+            `<tr>
+            <td>${player.playerID}</td>
+            <td>${player.playerName}</td>
+            <td>${player.gamesPlayed}</td>
+            <td>${player.gamesWon}</td>
+            <td class="delete">
+                <button onclick="deletePlayer(${player.playerID})">Delete</button>
+            </td>
+        </tr>`;
+        
+    }); 
 }
 
 
