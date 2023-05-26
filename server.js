@@ -1,15 +1,20 @@
 const path = require('path');
 const express = require('express');
-const expresshbs = require('express-handlebars')
+const expresshbs = require('express-handlebars');
 const { nextTick } = require('process');
 const playerData = require('./playerData.json');
-const db = require('./database-connector')
+const db = require('./database-connector');
+const cors = require('cors');
 
 const app = express();
 const port = process.env.PORT || 3988;
 
 app.engine('handlebars', expresshbs.engine({
     defaultLayout: "main"
+}));
+
+app.use(cors({
+    origin: 'http://localhost:3988'
 }));
 
 app.set('view engine', 'handlebars')
