@@ -1,12 +1,12 @@
-var path = require('path');
-var express = require('express');
-var expresshbs = require('express-handlebars')
+const path = require('path');
+const express = require('express');
+const expresshbs = require('express-handlebars')
 const { nextTick } = require('process');
-var playerData = require('./playerData.json');
-var db = require('./database-connector')
+const playerData = require('./playerData.json');
+const db = require('./database-connector')
 
-var app = express();
-var port = process.env.PORT || 3988;
+const app = express();
+const port = process.env.PORT || 3988;
 
 app.engine('handlebars', expresshbs.engine({
     defaultLayout: "main"
