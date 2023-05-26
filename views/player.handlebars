@@ -1,31 +1,27 @@
-<div class="page-title">Player win rates:</div>
-<table>
-    <tr>
-        <th>Player ID</th>
-        <th>Player Name</th>
-        <th>Games Played</th>
-        <th>Games Won</th>
-        <th class="delete">Delete</th>
-    </tr>
-    <tr>
-        <th> - </th>
-        <th> </th>
-        <th> </th>
-        <th> </th>
-        <th class="delete-row"><button type="button">Delete</button></th>
-    </tr>
-   <tr>
-        <th> - </th>
-        <th> </th>
-        <th> </th>
-        <th> </th>
-        <th class="delete-row"><button type="button">Delete</button></th>
-    </tr>
-    <tr>
-        <th> - </th>
-        <th> </th>
-        <th> </th>
-        <th> </th>
-        <th class="delete-row"><button type="button">Delete</button></th>
-    </tr>
-</table>
+<html>
+<head>
+    <title>Player List</title>
+    <script src="https://cdn.jsdelivr.net/npm/handlebars@4.7.7"></script>
+    <script src="/player.js" charset="utf-8" defer></script>
+</head>
+    <body>
+        <div class="page-title">Player win rates:</div>
+        <table class="player-table">
+            <thead>
+                <tr>
+                    <th>Player ID</th>
+                    <th>Player Name</th>
+                    <th>Games Played</th>
+                    <th>Games Won</th>
+                    <th class="delete">Delete</th>
+                </tr>
+            </thead>
+            <tbody id="playerTableBody">
+                {{!-- Player rows will be dynamically added here --}}
+            </tbody>
+        </table>
+        {{!-- <template id="playerRowTemplate">
+            
+        </template> --}}
+    </body>
+</html>

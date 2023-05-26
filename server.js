@@ -58,7 +58,7 @@ app.get('/game', function (req, res) {
 });
 app.get('/player', function (req, res) {
     res.status(200).render('player', {
-      pageTitle: "Scythe Player Database"
+      pageTitle: "Scythe Player Database",
     })
     //insert db statements for player statistics
 
