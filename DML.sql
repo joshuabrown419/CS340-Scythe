@@ -18,7 +18,7 @@ INNER JOIN PlayerGameIntersection ON PlayerGameIntersection.gameID = Game.gameID
 WHERE PlayerGameIntersection.playerID = :selected_played_id;
 
 -- Select games a player has participate in by player name
-SELECT Game.gameID, Game.gameSetupID, Game.gameDate
+SELECT Game.gameID
 FROM Game
 INNER JOIN PlayerGameIntersection ON PlayerGameIntersection.gameID = Game.gameID
 WHERE PlayerGameIntersection.playerID = (SELECT playerID FROM Player WHERE playerName = :select_player_name);
@@ -78,7 +78,7 @@ UPDATE Player SET playerName = :new_player_name
 WHERE playerID = :player_id_from_update;
 
 -- Update date a game was played on
-UPDATE Game SET gameDate = :new_game_date
+UPDATE Game SET gameDate = :new_game_date, gameSetupID = :new_game_setup_id
 WHERE gameID = :game_id_from_update;
 
 -- Update a game setup

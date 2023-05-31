@@ -113,13 +113,56 @@ function handleGameRequest(req, res) {
             return;
         }
         
-        db.pool.query("")
+        db.pool.query("DELETE FROM Game WHERE gameID = " + req.query.id + ";", function(err, result) {
+            if (err) {
+                console.log(err)
+                res.sendStatus(400);
+                return;
+            }
+            res.sendStatus(200)
+        });
     } else if(req.query.operation === 'insert') {
-
+        if(!(req.query.gameSetupID && req.query.gameDate)) {
+            res.sendStatus(400);
+            return;
+        }
+        
+        db.pool.query("INSERT INTO Game (gameSetupID, gameDate) VALUES (" + req.query.gameSetupID + ", " + req.query.gameDate + ");", function (err, result) {
+            if (err) {
+                console.log(err)
+                res.sendStatus(400);
+                return;
+            }
+            res.sendStatus(200)
+        })
     } else if(req.query.operation === 'update') {
+        if(!(req.query.id && req.query.gameSetupID && req.query.gameDate)) {
+            res.sendStatus(400);
+            return;
+        }
 
+        db.pool.query("UPDATE Game SET gameSetupID = " + req.query.gameSetupID + ", gameDate = " + req.query.gameDate + " WHERE gameID = " + req.query.id + ";", function (err, result) {
+            if (err) {
+                console.log(err)
+                res.sendStatus(400);
+                return;
+            }
+            res.sendStatus(200)
+        })
     } else if(req.query.operation === 'search') {
-
+        if(!req.query.playerName) {
+            res.sendStatus(400);
+            return;
+        }
+        
+        db.pool.query("SELECT Game.gameID FROM Game INNER JOIN PlayerGameIntersection ON PlayerGameIntersection.gameID = Game.gameID WHERE PlayerGameIntersection.playerID = (SELECT playerID FROM Player WHERE playerName = \"" + req.query.playerName + "\");", function(err, result) {
+            if (err) {
+                console.log(err)
+                res.sendStatus(400);
+                return;
+            }
+            res.json(result)
+        })
     } else {
         res.status(400)
     }
