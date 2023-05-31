@@ -24,8 +24,10 @@ INNER JOIN PlayerGameIntersection ON PlayerGameIntersection.gameID = Game.gameID
 WHERE PlayerGameIntersection.playerID = (SELECT playerID FROM Player WHERE playerName = :select_player_name);
 
 -- Select all the games
-SELECT gameID, gameSetupID, gameDate
-FROM Game
+SELECT gameID, gameSetupID, gameDate,
+(SELECT COUNT(*) FROM GameFaction gf3 WHERE gf3.gameID = g.gameID) as playerCount,
+(SELECT p.playerName as playerName FROM GameFaction gf INNER JOIN Player p ON gf.playerID = p.playerID WHERE (gf.gameID = g.gameID AND (gf.endingCoins + gf.endingPopularity + gf.starsPlaced + gf.tilesControlled + gf.resources) = (SELECT MAX(gf2.endingCoins + gf2.endingPopularity + gf2.starsPlaced + gf2.tilesControlled + gf2.resources) FROM GameFaction gf2 WHERE gf2.gameID = g.gameID))) as winningPlayer
+FROM Game g
 ORDER BY gameDate DESC;
 
 -- Select all the players in a game
@@ -85,9 +87,6 @@ WHERE gameSetupID = :game_setup_id_from_update;
 
 -- Delete a player
 DELETE FROM Player
-WHERE playerID = :player_id
-
-UPDATE GameFaction SET playerID = NULL
 WHERE playerID = :player_id
 
 -- Delete a game

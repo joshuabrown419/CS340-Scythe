@@ -93,7 +93,8 @@ VALUES (1, 1, 15, 13, 6, 9, 'Rusviet Union', 'Agriculture', 2),
 (2, 1, 15, 11, 4, 3, 'Saxony Empire', 'Military', 5),
 (3, 1, 20, 0, 4, 9, 'Nordic Kingdoms', 'Industrial', 6),
 (4, 1, 16, 13, 3, 6, 'Crimean Khanate', 'Innovative', 3),
-(5, 1, 1, 7, 1, 6, 'Clan Albion', 'Mechanical', 5);
+(5, 1, 1, 7, 1, 6, 'Clan Albion', 'Mechanical', 5),
+(6, 1, 12, 7, 1, 7, "Republic of Polania", "Patriotic", 3);
 
 SELECT * FROM GameFaction;
 
