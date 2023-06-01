@@ -170,15 +170,67 @@ function handleGameRequest(req, res) {
 
 function handleGameSetupRequest(req, res) {
     if(req.query.operation === 'select'){
-
+        if(!req.query.id) {
+            db.pool.query("SELECT * FROM GameSetup;", function(err, result) {
+                if (err) {
+                    console.log(err)
+                    res.sendStatus(400);
+                    return;
+                }
+                res.json(result)
+            })
+        } else {
+            db.pool.query("SELECT * FROM GameSetup WHERE gameSetupID = " + req.query.id + ";", function(err, result) {
+                if (err) {
+                    console.log(err)
+                    res.sendStatus(400);
+                    return;
+                }
+                res.json(result)
+            })
+        }
     } else if(req.query.operation === 'delete') {
+        if(!req.query.id) {
+            res.sendStatus(400);
+            return;
+        }
 
+        db.pool.query("DELETE FROM GameSetup WHERE gameSetupID = " + req.query.id + ";", function(err, result) {
+            if (err) {
+                console.log(err)
+                res.sendStatus(400);
+                return;
+            }
+            res.sendStatus(200)
+        });
     } else if(req.query.operation === 'insert') {
-
+        if(!(req.query.expansionsUsed && req.query.gameBoard && req.query.buildScoreTile)) {
+            res.sendStatus(400);
+            return;
+        }
+        
+        db.pool.query("INSERT INTO GameSetup (expansionsUsed, gameBoard, buildScoreTile) VALUES (\"" + req.query.expansionsUsed + "\", \"" + req.query.gameBoard + "\", \"" + req.query.buildScoreTile + "\");", function(err, result) {
+            if (err) {
+                console.log(err)
+                res.sendStatus(400);
+                return;
+            }
+            res.sendStatus(200)
+        })
     } else if(req.query.operation === 'update') {
+        if(!(req.query.expansionsUsed && req.query.gameBoard && req.query.buildScoreTile && req.query.id)) {
+            res.sendStatus(400);
+            return;
+        }
 
-    } else if(req.query.operation === 'search') {
-
+        db.pool.query("UPDATE GameSetup SET expansionsUsed = \"" + req.query.expansionsUsed + "\", gameBoard = \"" + req.query.gameBoard + "\", buildScoreTile = \"" + req.query.buildScoreTile + "\";", function(err, result) {
+            if (err) {
+                console.log(err)
+                res.sendStatus(400);
+                return;
+            }
+            res.sendStatus(200)
+        })
     } else {
         res.status(400)
     }
@@ -217,6 +269,8 @@ function handleApiRequest(req, res) {
         handlePlayerRequest(req, res)
     } else if (req.query.name === 'Game') {
         handleGameRequest(req, res)
+    } else if (req.query.name === 'GameSetup') {
+        handleGameSetupRequest(req, res)
     }
 }
 
