@@ -8,17 +8,18 @@ async function renderPlayerList() {
     const playerList = await getPlayerData();
     const playerTableBody = document.getElementById("playerTableBody");
 
+    console.log("playerList: "+playerList)
     playerList.forEach(player => {
         playerTableBody.innerHTML += 
             `<tr id="${player.playerID}">
-            <td>${player.playerID}</td>
-            <td>${player.playerName}</td>
-            <td>${player.gamesPlayed}</td>
-            <td>${player.gamesWon}</td>
-            <td class="delete">
-                <button onclick="deletePlayer(${player.playerID})">Delete</button>
-            </td>
-        </tr>`;
+                <td>${player.playerID}</td>
+                <td>${player.playerName}</td>
+                <td>${player.gamesPlayed}</td>
+                <td>${player.gamesWon}</td>
+                <td class="delete">
+                    <button onclick="deletePlayer(${player.playerID})">Delete</button>
+                </td>
+            </tr>`;
     }); 
 }
 

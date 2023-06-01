@@ -1,32 +1,22 @@
-<div class="page-title">Game Setups:</div>
-<table>
-    <tr>
-        <th>Setup ID</th>
-        <th>Expansions Used</th>
-        <th>Board Used</th>
-        <th>Build Score Tile</th>
-        <th class="delete">Delete</th>
-    </tr>
-    <tr>
-        <th> - </th>
-        <th> </th>
-        <th> </th>
-        <th> </th>
-        <th class="delete-row"><button type="button">Delete</button></th>
-
-    </tr>
-   <tr>
-        <th> - </th>
-        <th> </th>
-        <th> </th>
-        <th> </th>
-        <th class="delete-row"><button type="button">Delete</button></th>
-    </tr>
-    <tr>
-        <th> - </th>
-        <th> </th>
-        <th> </th>
-        <th> </th>
-        <th class="delete-row"><button type="button">Delete</button></th>
-    </tr>
-</table>
+<html>
+<head>
+    <title>Board Setup</title>
+    <script src="/board.js" charset="utf-8" defer></script>
+</head>
+<body>
+    <div class="page-title">Game Setups:</div>
+    <table class="board-table">
+        <thead>
+            <tr>
+                <th>Setup ID</th>
+                <th>Expansions Used</th>
+                <th>Board Used</th>
+                <th>Build Score Tile</th>
+                <th class="delete">Delete</th>
+            </tr>
+        </thead>
+        <tbody id="boardTableBody">
+            {{!-- board rows will be dynamically added here --}}
+        </tbody>
+    </table>
+</body>

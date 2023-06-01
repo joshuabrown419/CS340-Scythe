@@ -9,7 +9,7 @@
         </div>
         <div class="game-settings" id="game-players">
             Player Count:
-            <select id="insert-player-count">
+            <select id="insert-player-count" onchange="updatePlayers()">
                 <option value="1">1 player</option>
                 <option value="2">2 players</option>
                 <option value="3">3 players</option>
@@ -41,9 +41,17 @@
         </div>
     </div>
     <div id="player-enter">
-        {{#each playerCount}}
-            {{>addplayer number = playerNumber}}
-        {{/each}}
+        <div id="player-1-insert" class="player-insert">
+        Player 1 insert:
+        <div id="player-1-name"> Player Name: <input id="player-1-text" type="text" ><button id="toggle-player-1" type="button">NONE</button></div>
+        <div class="player-faction">Player Faction Name: <input type="text"></div>
+        <div class="player-board">Player Board Name: <input type="text"></div>
+        <div class="player-coins">Player Coins: <input type="text"></div>
+        <div class="player-popularity">Player Popularity (0-18): <input type="text"></div>
+        <div class="player-stars">Player Stars (0-6): <input type="text"></div>
+        <div class="player-tiles">Player Tiles: <input type="text"></div>
+        <div class="player-resources">Player Resources: <input type="text"></div>
+        </div>
     </div>
 
 </div>
