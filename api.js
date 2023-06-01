@@ -258,7 +258,9 @@ function handleGameSetupRequest(req, res) {
 function handleGameFactionRequest(req, res) {
     if(req.query.operation === 'select'){
         if(!req.query.id) {
-            db.pool.query("SELECT * FROM GameFaction", function(err, result) {
+            db.pool.query(`SELECT gf.gameFactionID, gf.playerID, gf.endingCoints, gf.endingPopularity, gf.starsPlaced, gf.tilesControlled, gf.faction, gf.playerBoard, gf.resources, p.playerName
+            FROM GameFaction gf
+            INNER JOIN Player p ON p.playerID = gf.playerID`, function(err, result) {
                 if (err) {
                     console.log(err)
                     res.sendStatus(400);
@@ -303,7 +305,7 @@ function handleGameFactionRequest(req, res) {
                     return
                 } else {
                     db.pool.query(`INSERT INTO GameFaction (playerID, gameID, endingCoins, endingPopularity, starsPlaced, tilesControlled, faction, playerBoard, resources)
-            VALUES (SELECT playerID FROM Player WHERE playerName = "` + req.query.playerName + `", ` + req.query.gameID + `, ` + req.query.endingCoins + `, ` + req.query.endingPopulatiry + `, ` + req.query.starsPlaced + `, ` + req.query.tilesControlled + `, "` + req.query.faction + `", "` + req.query.playerBoard + `", ` + req.query.resources + `);`, function(err, result) {
+                    VALUES (SELECT playerID FROM Player WHERE playerName = "` + req.query.playerName + `", ` + req.query.gameID + `, ` + req.query.endingCoins + `, ` + req.query.endingPopulatiry + `, ` + req.query.starsPlaced + `, ` + req.query.tilesControlled + `, "` + req.query.faction + `", "` + req.query.playerBoard + `", ` + req.query.resources + `);`, function(err, result) {
                         if (err) {
                             console.log(err)
                             res.sendStatus(400);
