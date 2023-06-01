@@ -257,11 +257,68 @@ function handleGameSetupRequest(req, res) {
 
 function handleGameFactionRequest(req, res) {
     if(req.query.operation === 'select'){
-
+        if(!req.query.id) {
+            db.pool.query("SELECT * FROM GameFaction", function(err, result) {
+                if (err) {
+                    console.log(err)
+                    res.sendStatus(400);
+                    return;
+                }
+                res.json(result)
+            })
+        } else {
+            db.pool.query("SELECT * FROM GameFaction WHERE gameSetupID = " + req.query.id + ";", function(err, results) {
+                if (err) {
+                    console.log(err)
+                    res.sendStatus(400);
+                    return;
+                }
+                res.json(result)
+            })
+        }
     } else if(req.query.operation === 'delete') {
-
+        if(!req.query.id) {
+            res.sendStatus(400)
+            return;
+        }
+        
+        db.pool.query(`DELETE FROM GameSetup
+        WHERE gameSetupID = ` + req.query.id + `;`, function(err, result) {
+            if (err) {
+                console.log(err)
+                res.sendStatus(400);
+                return;
+            }
+            res.sendStatus(200)
+        })
     } else if(req.query.operation === 'insert') {
-
+        if(req.query.playerName && req.query.gameID && req.query.endingCoins
+        && req.query.endingPopulatiry && req.query.starsPlaced && req.query.tilesControlled
+        && req.query.faction && req.query.playerBoard && req.query.resources) {
+            db.pool.query(`INSERT INTO GameFaction (playerID, gameID, endingCoins, endingPopularity, starsPlaced, tilesControlled, faction, playerBoard, resources)
+            VALUES (SELECT playerID FROM Player WHERE playerName = "` + req.query.playerName + `", ` + req.query.gameID + `, ` + req.query.endingCoins + `, ` + req.query.endingPopulatiry + `, ` + req.query.starsPlaced + `, ` + req.query.tilesControlled + `, "` + req.query.faction + `", "` + req.query.playerBoard + `", ` + req.query.resources + `);`, function(err, result) {
+                if (err) {
+                    console.log(err)
+                    res.sendStatus(400);
+                    return;
+                }
+                res.sendStatus(200)
+            })
+        } else if (req.query.gameID && req.query.endingCoins && req.query.endingPopulatiry
+        && req.query.starsPlaced && req.query.tilesControlled && req.query.faction
+        && req.query.playerBoard && req.query.resources) {
+            db.pool.query(`INSERT INTO GameFaction (playerID, gameID, endingCoins, endingPopularity, starsPlaced, tilesControlled, faction, playerBoard, resources)
+            VALUES (NULL, ` + req.query.gameID + `, ` + req.query.endingCoins + `, ` + req.query.endingPopulatiry + `, ` + req.query.starsPlaced + `, ` + req.query.tilesControlled + `, "` + req.query.faction + `", "` + req.query.playerBoard + `", ` + req.query.resources + `);`, function(err, result) {
+                if (err) {
+                    console.log(err)
+                    res.sendStatus(400);
+                    return;
+                }
+                res.sendStatus(200)
+            })
+        } else {
+            res.sendStatus(400)
+        }
     } else if(req.query.operation === 'update') {
 
     } else if(req.query.operation === 'search') {
