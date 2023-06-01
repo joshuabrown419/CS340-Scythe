@@ -56,7 +56,7 @@ function handlePlayerRequest(req, res) {
                 return;
             }
 
-            res.sendStatus(200)
+            res.send(result.insertId.toString())
         });
     } else if(req.query.operation === 'update') {
         if(!(req.query.id && req.query.playerName)) {
@@ -149,7 +149,7 @@ function handleGameRequest(req, res) {
                 res.sendStatus(400);
                 return;
             }
-            res.sendStatus(200)
+            res.send(result.insertId.toString())
         })
     } else if(req.query.operation === 'update') {
         if(!(req.query.id && req.query.gameSetupID && req.query.gameDate)) {
@@ -234,7 +234,7 @@ function handleGameSetupRequest(req, res) {
                 res.sendStatus(400);
                 return;
             }
-            res.sendStatus(200)
+            res.send(result.insertId.toString())
         })
     } else if(req.query.operation === 'update') {
         if(!(req.query.expansionsUsed && req.query.gameBoard && req.query.buildScoreTile && req.query.id)) {
@@ -311,7 +311,7 @@ function handleGameFactionRequest(req, res) {
                             res.sendStatus(400);
                             return;
                         }
-                        res.sendStatus(200)
+                        res.send(result.insertId.toString())
                     })
                 }
             })
@@ -325,7 +325,7 @@ function handleGameFactionRequest(req, res) {
                     res.sendStatus(400);
                     return;
                 }
-                res.sendStatus(200)
+                res.send(result.insertId.toString())
             })
         } else {
             res.sendStatus(400)
@@ -352,15 +352,16 @@ function handleGameFactionRequest(req, res) {
 }
 
 function handleApiRequest(req, res) {
+    
+    if(!req.query.operation) {
+        res.status(404).send('Need operation');
+        return;
+    }
+    
     if(!req.query.name){
         res.status(404).render('api', {
             pageTitle: 'API page'
         });
-        return;
-    }
-    
-    if(!req.query.operation) {
-        res.status(404).send('Need operation in addition to table name');
         return;
     }
     
