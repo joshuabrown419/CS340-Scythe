@@ -330,10 +330,22 @@ function handleGameFactionRequest(req, res) {
         } else {
             res.sendStatus(400)
         }
-//    } else if(req.query.operation === 'update') {
-//
-//    } else if(req.query.operation === 'search') {
-
+    } else if(req.query.operation === 'update') {
+        if(!(req.query.id && req.query.playerName && req.query.gameID && req.query.endingCoins
+        && req.query.endingPopulatiry && req.query.starsPlaced && req.query.tilesControlled
+        && req.query.faction && req.query.playerBoard && req.query.resources)) {
+            res.sendStatus(400)
+        }
+        
+        db.pool.query(`UPDATE GameFaction SET
+            playerID = (SELECT playerID FROM Player WHERE playerName = "` + req.query.playerName + `"), gameID = ` + req.query.gameID + `, endingCoins = ` + req.query.endingCoins + `, endingPopularity = ` + req.query.endingPopulatiry + `, starsPlaced = ` + req.query.starsPlaced + `, tilesController = ` + req.query.tilesControlled + `, faction = "` + req.query.faction + `", playerBoard = "` + req.query.playerBoard + `", resources = ` + req.query.resources + `;`, function(err, result) {
+            if (err) {
+                console.log(err)
+                res.sendStatus(400);
+                return;
+            }
+            res.sendStatus(200)
+        });
     } else {
         res.status(400)
     }
