@@ -258,7 +258,7 @@ function handleGameSetupRequest(req, res) {
 function handleGameFactionRequest(req, res) {
     if(req.query.operation === 'select'){
         if(!req.query.id) {
-            db.pool.query(`SELECT gf.gameFactionID, gf.playerID, gf.endingCoints, gf.endingPopularity, gf.starsPlaced, gf.tilesControlled, gf.faction, gf.playerBoard, gf.resources, p.playerName
+            db.pool.query(`SELECT gf.gameFactionID, gf.playerID, gf.endingCoins, gf.endingPopularity, gf.starsPlaced, gf.tilesControlled, gf.faction, gf.playerBoard, gf.resources, p.playerName
             FROM GameFaction gf
             INNER JOIN Player p ON p.playerID = gf.playerID`, function(err, result) {
                 if (err) {
