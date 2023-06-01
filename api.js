@@ -319,9 +319,9 @@ function handleGameFactionRequest(req, res) {
         } else {
             res.sendStatus(400)
         }
-    } else if(req.query.operation === 'update') {
-
-    } else if(req.query.operation === 'search') {
+//    } else if(req.query.operation === 'update') {
+//
+//    } else if(req.query.operation === 'search') {
 
     } else {
         res.status(400)
@@ -347,6 +347,10 @@ function handleApiRequest(req, res) {
         handleGameRequest(req, res)
     } else if (req.query.name === 'GameSetup') {
         handleGameSetupRequest(req, res)
+    } else if (req.query.name === 'GameFaction') {
+        handleGameFactionRequest(req, res)
+    } else {
+        res.sendStatus(400)
     }
 }
 
