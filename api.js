@@ -296,7 +296,7 @@ function handleGameFactionRequest(req, res) {
         && req.query.endingPopulatiry && req.query.starsPlaced && req.query.tilesControlled
         && req.query.faction && req.query.playerBoard && req.query.resources) {
             db.pool.query(`INSERT INTO PlayerGameIntersection (playerID, gameID)
-            VALUES (SELECT playerID FROM Player WHERE playerName = "` + req.query.playerName + "\", :game_id);", function(err, result) {
+            VALUES (SELECT playerID FROM Player WHERE playerName = "` + req.query.playerName + "\", " + req.query.gameID + ");", function(err, result) {
                 if (err) {
                     console.log(err)
                     res.sendStatus(400)
