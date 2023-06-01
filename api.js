@@ -295,14 +295,23 @@ function handleGameFactionRequest(req, res) {
         if(req.query.playerName && req.query.gameID && req.query.endingCoins
         && req.query.endingPopulatiry && req.query.starsPlaced && req.query.tilesControlled
         && req.query.faction && req.query.playerBoard && req.query.resources) {
-            db.pool.query(`INSERT INTO GameFaction (playerID, gameID, endingCoins, endingPopularity, starsPlaced, tilesControlled, faction, playerBoard, resources)
-            VALUES (SELECT playerID FROM Player WHERE playerName = "` + req.query.playerName + `", ` + req.query.gameID + `, ` + req.query.endingCoins + `, ` + req.query.endingPopulatiry + `, ` + req.query.starsPlaced + `, ` + req.query.tilesControlled + `, "` + req.query.faction + `", "` + req.query.playerBoard + `", ` + req.query.resources + `);`, function(err, result) {
+            db.pool.query(`INSERT INTO PlayerGameIntersection (playerID, gameID)
+            VALUES (SELECT playerID FROM Player WHERE playerName = "` + req.query.playerName + "\", :game_id);", function(err, result) {
                 if (err) {
                     console.log(err)
-                    res.sendStatus(400);
-                    return;
+                    res.sendStatus(400)
+                    return
+                } else {
+                    db.pool.query(`INSERT INTO GameFaction (playerID, gameID, endingCoins, endingPopularity, starsPlaced, tilesControlled, faction, playerBoard, resources)
+            VALUES (SELECT playerID FROM Player WHERE playerName = "` + req.query.playerName + `", ` + req.query.gameID + `, ` + req.query.endingCoins + `, ` + req.query.endingPopulatiry + `, ` + req.query.starsPlaced + `, ` + req.query.tilesControlled + `, "` + req.query.faction + `", "` + req.query.playerBoard + `", ` + req.query.resources + `);`, function(err, result) {
+                        if (err) {
+                            console.log(err)
+                            res.sendStatus(400);
+                            return;
+                        }
+                        res.sendStatus(200)
+                    })
                 }
-                res.sendStatus(200)
             })
         } else if (req.query.gameID && req.query.endingCoins && req.query.endingPopulatiry
         && req.query.starsPlaced && req.query.tilesControlled && req.query.faction
