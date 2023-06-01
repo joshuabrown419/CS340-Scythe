@@ -46,7 +46,7 @@ CREATE TABLE Game (
 );
 
 INSERT INTO Game (gameSetupID, gameDate)
-VALUES (0, '20230411');
+VALUES (1, '20230411');
 
 SELECT * FROM Game;
 
