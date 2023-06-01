@@ -1,14 +1,14 @@
-// // Get an instance of mysql we can use in the app
-// var mysql = require('mysql')
+ // Get an instance of mysql we can use in the app
+ var mysql = require('mysql')
 
-// // Create a 'connection pool' using the provided credentials
-// var pool = mysql.createPool({
-//     connectionLimit : 10,
-//     host            : 'classmysql.engr.oregonstate.edu',
-//     user            : 'cs340_gissn',
-//     password        : '7001',
-//     database        : 'cs340_gissn'
-// })
+ // Create a 'connection pool' using the provided credentials
+ var pool = mysql.createPool({
+     connectionLimit : 10,
+     host            : 'classmysql.engr.oregonstate.edu',
+     user            : 'cs340_brownjo8',
+     password        : '5590',
+     database        : 'cs340_brownjo8'
+ })
 
-// // Export it for use in our application
-// module.exports.pool = pool;
+ // Export it for use in our application
+ module.exports.pool = pool;
