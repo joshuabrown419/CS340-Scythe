@@ -37,14 +37,14 @@ function updatePlayers(){
         playerID.innerHTML += 
         `<div id="player-${i}-insert" class="player-insert">
         Player ${i} insert:
-        <div id="player-${i}-name"> Player Name: <input id="player-${i}-text" type="text" ><button id="toggle-player-${i}" type="button">NONE</button></div>
-        <div class="player-faction">Player Faction Name: <input type="text"></div>
-        <div class="player-board">Player Board Name: <input type="text"></div>
-        <div class="player-coins">Player Coins: <input type="text"></div>
-        <div class="player-popularity">Player Popularity (0-18): <input type="text"></div>
-        <div class="player-stars">Player Stars (0-6): <input type="text"></div>
-        <div class="player-tiles">Player Tiles: <input type="text"></div>
-        <div class="player-resources">Player Resources: <input type="text"></div>
+        <div id="player-${i}-name"> Player Name: <input id="player-${i}-text" type="text" id="player-${i}-name"><button id="toggle-player-1" type="button">NONE</button></div>
+        <div class="player-faction">Player Faction Name: <input type="text" id="player-${i}-faction"></div>
+        <div class="player-board">Player Board Name: <input type="text" id="player-${i}-board"></div>
+        <div class="player-coins">Player Coins: <input type="text" id="player-${i}-coins"></div>
+        <div class="player-popularity">Player Popularity (0-18): <input type="text" id="player-${i}-popularity"></div>
+        <div class="player-stars">Player Stars (0-6): <input type="text" id="player-${i}-stars"></div>
+        <div class="player-tiles">Player Tiles: <input type="text" id="player-${i}-tiles"></div>
+        <div class="player-resources">Player Resources: <input type="text" id="player-${i}-resources"></div>
         </div>`
     }
     console.log("playerID: "+playerID)
