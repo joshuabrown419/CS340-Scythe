@@ -28,7 +28,7 @@ SELECT gameID, gameSetupID, gameDate,
 (SELECT COUNT(*) FROM GameFaction gf3 WHERE gf3.gameID = g.gameID) as playerCount,
 (SELECT p.playerName as playerName FROM GameFaction gf INNER JOIN Player p ON gf.playerID = p.playerID WHERE (gf.gameID = g.gameID AND (gf.endingCoins + gf.endingPopularity + gf.starsPlaced + gf.tilesControlled + gf.resources) = (SELECT MAX(gf2.endingCoins + gf2.endingPopularity + gf2.starsPlaced + gf2.tilesControlled + gf2.resources) FROM GameFaction gf2 WHERE gf2.gameID = g.gameID))) as winningPlayer
 FROM Game g
-ORDER BY gameDate DESC;
+ORDER BY gameDate DESC, gameID ASC;
 
 -- Select all the players in a game
 SELECT Player.playerID, Player.playerName
