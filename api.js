@@ -346,7 +346,7 @@ function handleGameFactionRequest(req, res) {
         && req.query.starsPlaced && req.query.tilesControlled && req.query.faction
         && req.query.playerBoard && req.query.resources) {
             db.pool.query(`INSERT INTO GameFaction (playerID, gameID, endingCoins, endingPopularity, starsPlaced, tilesControlled, faction, playerBoard, resources)
-            VALUES (NULL, ` + req.query.gameID + `, ` + req.query.endingCoins + `, ` + req.query.endingPopulatiry + `, ` + req.query.starsPlaced + `, ` + req.query.tilesControlled + `, "` + req.query.faction + `", "` + req.query.playerBoard + `", ` + req.query.resources + `);`, function(err, result) {
+            VALUES (NULL, ` + req.query.gameID + `, ` + req.query.endingCoins + `, ` + req.query.endingPopulariy + `, ` + req.query.starsPlaced + `, ` + req.query.tilesControlled + `, "` + req.query.faction + `", "` + req.query.playerBoard + `", ` + req.query.resources + `);`, function(err, result) {
                 if (err) {
                     console.log(err)
                     res.sendStatus(400);
