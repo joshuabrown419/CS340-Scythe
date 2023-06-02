@@ -242,7 +242,7 @@ function handleGameSetupRequest(req, res) {
             return;
         }
 
-        db.pool.query("UPDATE GameSetup SET expansionsUsed = \"" + req.query.expansionsUsed + "\", gameBoard = \"" + req.query.gameBoard + "\", buildScoreTile = \"" + req.query.buildScoreTile + "\";", function(err, result) {
+        db.pool.query("UPDATE GameSetup SET expansionsUsed = \"" + req.query.expansionsUsed + "\", gameBoard = \"" + req.query.gameBoard + "\", buildScoreTile = \"" + req.query.buildScoreTile + "\" WHERE gameSetupID = " + req.query.gameSetupID + ";", function(err, result) {
             if (err) {
                 console.log(err)
                 res.sendStatus(400);
