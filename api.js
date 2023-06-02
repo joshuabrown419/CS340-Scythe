@@ -297,21 +297,48 @@ function handleGameFactionRequest(req, res) {
         if(req.query.playerName && req.query.gameID && req.query.endingCoins
         && req.query.endingPopulatiry && req.query.starsPlaced && req.query.tilesControlled
         && req.query.faction && req.query.playerBoard && req.query.resources) {
-            db.pool.query(`INSERT INTO PlayerGameIntersection (playerID, gameID)
+            db.pool.query(`SELECT playerName
+            FROM Player
+            WHERE playerName = "` + req.query.playerName + `";`, function(err, result) {
+                if(result[0]) {
+                    db.pool.query(`INSERT INTO PlayerGameIntersection (playerID, gameID)
             VALUES (SELECT playerID FROM Player WHERE playerName = "` + req.query.playerName + "\", " + req.query.gameID + ");", function(err, result) {
-                if (err) {
-                    console.log(err)
-                    res.sendStatus(400)
-                    return
-                } else {
-                    db.pool.query(`INSERT INTO GameFaction (playerID, gameID, endingCoins, endingPopularity, starsPlaced, tilesControlled, faction, playerBoard, resources)
-                    VALUES (SELECT playerID FROM Player WHERE playerName = "` + req.query.playerName + `", ` + req.query.gameID + `, ` + req.query.endingCoins + `, ` + req.query.endingPopulatiry + `, ` + req.query.starsPlaced + `, ` + req.query.tilesControlled + `, "` + req.query.faction + `", "` + req.query.playerBoard + `", ` + req.query.resources + `);`, function(err, result) {
                         if (err) {
                             console.log(err)
-                            res.sendStatus(400);
-                            return;
+                            res.sendStatus(400)
+                            return
+                        } else {
+                            db.pool.query(`INSERT INTO GameFaction (playerID, gameID, endingCoins, endingPopularity, starsPlaced, tilesControlled, faction, playerBoard, resources)
+                    VALUES (SELECT playerID FROM Player WHERE playerName = "` + req.query.playerName + `", ` + req.query.gameID + `, ` + req.query.endingCoins + `, ` + req.query.endingPopulatiry + `, ` + req.query.starsPlaced + `, ` + req.query.tilesControlled + `, "` + req.query.faction + `", "` + req.query.playerBoard + `", ` + req.query.resources + `);`, function(err, result) {
+                                if (err) {
+                                    console.log(err)
+                                    res.sendStatus(400);
+                                    return;
+                                }
+                                               res.send(result.insertId.toString())
+                            })
                         }
-                        res.send(result.insertId.toString())
+                    })
+                } else {
+                    db.pool.query("INSERT INTO Player (playerName) VALUES (\"" + req.query.playerName + "\");", function(err, result) {
+                        db.pool.query(`INSERT INTO PlayerGameIntersection (playerID, gameID)
+            VALUES (SELECT playerID FROM Player WHERE playerName = "` + req.query.playerName + "\", " + req.query.gameID + ");", function(err, result) {
+                            if (err) {
+                                console.log(err)
+                                res.sendStatus(400)
+                                return
+                            } else {
+                                db.pool.query(`INSERT INTO GameFaction (playerID, gameID, endingCoins, endingPopularity, starsPlaced, tilesControlled, faction, playerBoard, resources)
+                    VALUES (SELECT playerID FROM Player WHERE playerName = "` + req.query.playerName + `", ` + req.query.gameID + `, ` + req.query.endingCoins + `, ` + req.query.endingPopulatiry + `, ` + req.query.starsPlaced + `, ` + req.query.tilesControlled + `, "` + req.query.faction + `", "` + req.query.playerBoard + `", ` + req.query.resources + `);`, function(err, result) {
+                                    if (err) {
+                                        console.log(err)
+                                        res.sendStatus(400);
+                                        return;
+                                    }
+                                                   res.send(result.insertId.toString())
+                                })
+                            }
+                        })
                     })
                 }
             })
