@@ -1,5 +1,5 @@
 async function getBoardData() {
-    const response = await fetch("http://flip1.engr.oregonstate.edu:3988/api?name=board&operation=select");
+    const response = await fetch("http://flip1.engr.oregonstate.edu:3988/api?name=GameSetup&operation=select");
     const boardList = await response.json();
     return boardList;
 }
@@ -11,13 +11,13 @@ async function renderBoardList() {
     console.log("boardList: "+boardList)
     boardList.forEach(board => {
         boardTableBody.innerHTML += 
-            `<tr id="${board.setupID}">
-                <td>${board.setupID}</td>
+            `<tr id="${board.gameSetupID}">
+                <td>${board.gameSetupID}</td>
                 <td>${board.expansionsUsed}</td>
-                <td>${board.boardUsed}</td>
+                <td>${board.gameBoard}</td>
                 <td>${board.buildScoreTile}</td>
                 <td class="delete">
-                    <button onclick="deleteBoard(${board.setupID})">Delete</button>
+                    <button onclick="deleteBoard(${board.gameSetupID})">Delete</button>
                 </td>
             </tr>`;
     }); 

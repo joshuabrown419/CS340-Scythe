@@ -1,5 +1,5 @@
 async function getFactionData() {
-    const response = await fetch("http://flip1.engr.oregonstate.edu:3988/api?name=Faction&operation=select");
+    const response = await fetch("http://flip1.engr.oregonstate.edu:3988/api?name=GameFaction&operation=select");
     const factionList = await response.json();
     return factionList;
 }
@@ -11,19 +11,20 @@ async function renderFactionList() {
     console.log("factionList: "+factionList)
     factionList.forEach(faction => {
         factionTableBody.innerHTML += 
-            `<tr id="${faction.factionID}">
-                <td>${faction.factionID}</td>
+            `<tr id="${faction.gameFactionID}">
+                <td>${faction.gameFactionID}</td>
                 <td>${faction.playerID}</td>
                 <td>${faction.gameID}</td>
-                <td>${faction.factionName}</td>
+                <td>${faction.playerName}</td>
+                <td>${faction.faction}</td>
                 <td>${faction.playerBoard}</td>
-                <td>${faction.coins}</td>
-                <td>${faction.popularity}</td>
-                <td>${faction.stars}</td>
+                <td>${faction.endingCoins}</td>
+                <td>${faction.endingPopularity}</td>
+                <td>${faction.starsPlaced}</td>
                 <td>${faction.tilesControlled}</td>
                 <td>${faction.resources}</td>
                 <td class="delete">
-                    <button onclick="deleteFaction(${faction.factionID})">Delete</button>
+                    <button onclick="deleteFaction(${faction.gameFactionID})">Delete</button>
                 </td>
             </tr>`;
     }); 
