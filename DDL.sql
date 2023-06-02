@@ -7,8 +7,8 @@ CREATE TABLE GameSetup (
     gameBoard       varchar(50)     NOT NULL,
     buildScoreTile  varchar(50)     NOT NULL,
 
-    PRIMARY KEY (gameSetupID),
-    CONSTRAINT uniqueSetup UNIQUE (expansionsUsed, gameBoard, buildScoreTile)
+    PRIMARY KEY (gameSetupID)
+--    CONSTRAINT uniqueSetup UNIQUE (expansionsUsed, gameBoard, buildScoreTile)
 );
 
 INSERT INTO GameSetup (expansionsUsed, gameBoard, buildScoreTile)
