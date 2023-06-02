@@ -11,16 +11,16 @@ submitGame.addEventListener('click', async function(){
 
     // console.log("Submiting Data")
     // console.log("Game Date:" + gameDate)
-    // console.log("Expansions: " + expansionsUsed)
+    console.log("Expansions: " + expansionsUsed)
     // console.log("Board Used:" + boardUsed)
     // console.log("Build Score Tile: " + buildScoreTile)
-    if (expansionsUsed.value == null){
-        expansionsUsed.value = "None"
+    if (expansionsUsed == null){
+        expansionsUsed = "None"
     }
     const changePlayerCount = document.getElementById("insert-player-count");
 
     //Game Setup
-    const sendGameSetup = await fetch('http://flip1.engr.oregonstate.edu:3988/api?name=GameSetup&operation=insert&expansionsUsed='+expansionsUsed.value+'&gameBoard='+boardUsed+'&buildScoreTile='+buildScoreTile)
+    const sendGameSetup = await fetch('http://flip1.engr.oregonstate.edu:3988/api?name=GameSetup&operation=insert&expansionsUsed='+expansionsUsed+'&gameBoard='+boardUsed+'&buildScoreTile='+buildScoreTile)
     const gameSetupID = await sendGameSetup.text()
     // console.log("GameSetupID: "+ gameSetupID)
 

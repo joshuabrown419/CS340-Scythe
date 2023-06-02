@@ -30,12 +30,34 @@ async function deleteBoard(boardID) {
   
     console.log(`Deleting board with ID: ${boardID}`);
     const selectboardRow = document.getElementById(boardID); // Assuming there is only one row with the specified boardID
-    // console.log("selectboardRow: " + selectboardRow);
-    // console.log("selectboardRow.innerHTML: " + selectboardRow.innerHTML);
-    // console.log("boardTableBody.innerHTML: " + boardTableBody.innerHTML);
+    
     await fetch('http://flip1.engr.oregonstate.edu:3988/api?name=GameSetup&operation=delete&id='+boardID)
-
     boardTableBody.removeChild(selectboardRow);
-  }
+}
 
-  renderBoardList();
+async function updateBoardSetup(){
+    var allExpansions = document.querySelectorAll('#update-expansions :checked')
+
+    var updateSetupID = document.getElementById("update-setup-id").value
+    var updateExpansionsUsed = [...allExpansions].map(option => option.value)
+    var updateBoardUsed = document.getElementById("update-board-used").value
+    var updateBuildTile = document.getElementById("update-build-tile").value
+
+    if (updateExpansionsUsed == null){
+        updateExpansionsUsed = "None"
+    }
+
+    var boardExists = false
+    const boardList = await getBoardData();
+    boardList.forEach(board => {
+        if(board.gameSetupID == updateSetupID){
+            boardExists = true
+        }
+    })
+    if (boardExists){
+        console.log("Fetching...")
+        await fetch('http://flip1.engr.oregonstate.edu:3988/api?name=GameSetup&operation=update&id='+updateSetupID+'&expansionsUsed='+updateExpansionsUsed+'&gameBoard='+updateBoardUsed+'&buildScoreTile='+updateBuildTile)
+    }
+    location.reload()
+}
+renderBoardList();

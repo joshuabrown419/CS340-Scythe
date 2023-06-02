@@ -19,4 +19,44 @@
             {{!-- board rows will be dynamically added here --}}
         </tbody>
     </table>
+
+    <div class="page-title">Update Game Setup:</div>
+    <table id="board-update">
+        <th><input type="text" placeholder="Setup ID" id="update-setup-id"></th>
+        <th>
+            <select id="update-expansions" multiple>
+                <option value="Invaders">Invaders from Afar</option>
+                <option value="Wind Gambit">The Wind Gambit</option>
+                <option value="Encounters">Scythe Encounters</option>
+                <option value="Fenris">Rise of Fenris</option>
+            </select>
+        </th>
+        <th>
+            <select id="update-board-used">
+                <option value="Standard">Standard</option>
+                <option value="Modular">Modular</option>
+            </select>
+        </th>
+        <th>
+            <select id="update-build-tile">
+                <option value="Tunnels-Building">Tunnels next to buildings</option>
+                <option value="Lakes-Building">Lakes next to buildings</option>
+                <option value="Encounters-Building">Encounters next to buildings</option>
+                <option value="on Tunnels">Buildings on Tunnels</option>
+                <option value="In Row">Buildings in a row</option>
+                <option value="on Farms/Tundra">Buildings on farms/tundra</option>
+                <option value="Building-Home/Factory">Buildings next to Home/Factory</option>
+                <option value="on Villages">Buildings on Villages</option>
+                <option value="on Encounters">Buildings on Encounters</option>
+                <option value="Single lake">Buildings next to single lake</option>
+                <option value="on Mountains/Forests">Buildings on mountains/forests</option>
+                <option value="Not Adjacent">Buildings not adjacent</option>
+                <option value="Diamond Formation">Buildings in diamond formation</option>
+                <option value="Single Encounter">Buildings next to single encouter</option>
+            </select>
+        </th>
+        <th>
+            <button onclick="updateBoardSetup()">Update!</button>
+        </th>
+    </table>
 </body>
