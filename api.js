@@ -294,6 +294,7 @@ function handleGameFactionRequest(req, res) {
             res.sendStatus(200)
         })
     } else if(req.query.operation === 'insert') {
+        console.log(req)
         if(req.query.playerName && req.query.gameID && req.query.endingCoins
         && req.query.endingPopulatiry && req.query.starsPlaced && req.query.tilesControlled
         && req.query.faction && req.query.playerBoard && req.query.resources) {
