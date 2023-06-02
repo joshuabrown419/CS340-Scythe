@@ -294,7 +294,6 @@ function handleGameFactionRequest(req, res) {
             res.sendStatus(200)
         })
     } else if(req.query.operation === 'insert') {
-        console.log(req)
         if(req.query.playerName && req.query.gameID && req.query.endingCoins
         && req.query.endingPopularity && req.query.starsPlaced && req.query.tilesControlled
         && req.query.faction && req.query.playerBoard && req.query.resources) {
@@ -303,7 +302,7 @@ function handleGameFactionRequest(req, res) {
             WHERE playerName = "` + req.query.playerName + `";`, function(err, result) {
                 if(result[0]) {
                     db.pool.query(`INSERT INTO PlayerGameIntersection (playerID, gameID)
-            VALUES (SELECT playerID FROM Player WHERE playerName = "` + req.query.playerName + "\", " + req.query.gameID + ");", function(err, result) {
+            VALUES ((SELECT playerID FROM Player WHERE playerName = "` + req.query.playerName + "\"), " + req.query.gameID + ");", function(err, result) {
                         if (err) {
                             console.log(err)
                             res.sendStatus(400)
