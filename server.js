@@ -14,8 +14,8 @@ app.engine('handlebars', expresshbs.engine({
 }));
 
 app.use(cors({
-    origin: 'http://localhost:3988'
-}));
+     origin: 'http://localhost:3988'
+ }));
 
 app.set('view engine', 'handlebars')
 
