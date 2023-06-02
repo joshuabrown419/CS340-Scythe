@@ -355,7 +355,7 @@ function handleGameFactionRequest(req, res) {
                 res.send(result.insertId.toString())
             })
         } else {
-            res.sendStatus(400)
+            res.status(400).send("wrong inputs")
         }
     } else if(req.query.operation === 'update') {
         if(!(req.query.id && req.query.playerName && req.query.gameID && req.query.endingCoins
