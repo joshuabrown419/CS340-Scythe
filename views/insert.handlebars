@@ -1,15 +1,16 @@
 <script src="/insert.js" charset="utf-8" defer></script>
+<script src="/sendGameData.js" charset="utf-8" defer></script>
 
 <div class="page-title">Add Game Results Below:</div>
 <div class="insert-game-box">
     <div class="game-type">
-        <div class="game-settings" id="game-date">
-            Game Date:
-            <input type="text">
+        <div class="game-settings">
+            Game Date (YYYYMMDD):
+            <input type="text" id="game-date">
         </div>
         <div class="game-settings" id="game-players">
             Player Count:
-            <select id="insert-player-count">
+            <select id="insert-player-count" onchange="updatePlayers()">
                 <option value="1">1 player</option>
                 <option value="2">2 players</option>
                 <option value="3">3 players</option>
@@ -22,28 +23,75 @@
         <div class="game-settings" id="game-expansions">
             Expansions Used:
             <select id="expansions" multiple>
-                <option value="1">Invaders from Afar</option>
-                <option value="2">The Wind Gambit</option>
-                <option value="3">Scythe Encounters</option>
-                <option value="4">Rise of Fenris</option>
+                <option value="Invaders">Invaders from Afar</option>
+                <option value="Wind Gambit">The Wind Gambit</option>
+                <option value="Encounters">Scythe Encounters</option>
+                <option value="Fenris">Rise of Fenris</option>
             </select>
         </div>
         <div class="game-settings" id="game-board">
             Board Used:
             <select id="select-board-used">
-                <option value="1">Standard</option>
-                <option value="2">Modular</option>
+                <option value="Standard">Standard</option>
+                <option value="Modular">Modular</option>
             </select>
         </div>
         <div class="game-settings" id="buildscore-tile">
             Build Score Tile:
-            <input type="text">
+            <select id="build-tile">
+                <option value="Tunnels-Building">Tunnels next to buildings</option>
+                <option value="Lakes-Building">Lakes next to buildings</option>
+                <option value="Encounters-Building">Encounters next to buildings</option>
+                <option value="on Tunnels">Buildings on Tunnels</option>
+                <option value="In Row">Buildings in a row</option>
+                <option value="on Farms/Tundra">Buildings on farms/tundra</option>
+                <option value="Building-Home/Factory">Buildings next to Home/Factory</option>
+                <option value="on Villages">Buildings on Villages</option>
+                <option value="on Encounters">Buildings on Encounters</option>
+                <option value="Single lake">Buildings next to single lake</option>
+                <option value="on Mountains/Forests">Buildings on mountains/forests</option>
+                <option value="Not Adjacent">Buildings not adjacent</option>
+                <option value="Diamond Formation">Buildings in diamond formation</option>
+                <option value="Single Encounter">Buildings next to single encouter</option>
+            </select>
+        </div>
+        <div class="game-settings">
+            <button type="button" id="enter-game">Submit Game!</button>
         </div>
     </div>
     <div id="player-enter">
-        {{#each playerCount}}
-            {{>addplayer number = playerNumber}}
-        {{/each}}
+        <div id="player-1-insert" class="player-insert">Player 1 insert:
+            <div id="player-1-name"> Player Name: <input id="player-1-text" type="text" id="player-1-name"><button id="toggle-player-1" type="button">NONE</button></div>
+            <div class="player-faction">Faction Used:
+                <select id="player-1-faction">
+                    <option value="Republic of Polania">Republic of Polania</option>
+                    <option value="Saxony Empire">Saxony Empire</option>
+                    <option value="Crimean Khanate">Crimean Khanate</option>
+                    <option value="Nordic Kingdoms">Nordic Kingdoms</option>
+                    <option value="Rusviet Union">Rusviet Union</option>
+                    <option value="Clan Albion">Clan Albion</option>
+                    <option value="Togawa Shogunate">Togawa Shogunate</option>
+                    <option value="Vesna">Vesna</option>
+                    <option value="Fenris">Fenris</option>
+                </select>
+            </div>
+            <div class="player-board">Board Used: 
+                <select id="player-1-board">
+                    <option value="Industrial">Industrial</option>
+                    <option value="Agricultural">Agricultural</option>
+                    <option value="Engineering">Engineering</option>
+                    <option value="Patriotic">Patriotic</option>
+                    <option value="Mechanical">Mechanical</option>
+                    <option value="Militant">Militant (2a)</option>
+                    <option value="Innovative">Innovative (3a)</option>
+                </select>
+            </div>
+            <div class="player-popularity">Popularity (0-18): <input type="text" id="player-1-popularity"></div>
+            <div class="player-coins">Coins at End: <input type="text" id="player-1-coins"></div>
+            <div class="player-stars">Stars (0-6): <input type="text" id="player-1-stars"></div>
+            <div class="player-tiles">Territories: <input type="text" id="player-1-tiles"></div>
+            <div class="player-resources">Resources: <input type="text" id="player-1-resources"></div>
+        </div>
     </div>
 
 </div>

@@ -1,62 +1,34 @@
-<div class="page-title">All Factions Played:</div>
-<table>
-    <tr>
-        <th>Faction ID</th>
-        <th>Player ID</th>
-        <th>Game ID</th>
-        <th>Faction Name</th>
-        <th>Player Board</th>
-        <th>Coins</th>
-        <th>Popularity</th>        
-        <th>Stars</th>
-        <th>Tiles Controlled</th>
-        <th>Popularity</th>
-        <th>Resources</th>
-        <th class="delete">Delete</th>
-
-
-    </tr>
-    <tr>
-        <th> - </th>
-        <th> </th>
-        <th> </th>
-        <th> </th>
-        <th> </th>
-        <th> </th>
-        <th> </th>
-        <th> </th>
-        <th> </th>
-        <th> </th>
-        <th> </th>
-        <th class="delete-row"><button type="button">Delete</button></th>
-
-    </tr>
-   <tr>
-        <th> - </th>
-        <th> </th>
-        <th> </th>
-        <th> </th>
-        <th> </th>
-        <th> </th>
-        <th> </th>
-        <th> </th>
-        <th> </th>
-        <th> </th>
-        <th> </th>
-        <th class="delete-row"><button type="button">Delete</button></th>
-    </tr>
-    <tr>
-        <th> - </th>
-        <th> </th>
-        <th> </th>
-        <th> </th>
-        <th> </th>
-        <th> </th>
-        <th> </th>
-        <th> </th>
-        <th> </th>
-        <th> </th>
-        <th> </th>
-        <th class="delete-row"><button type="button">Delete</button></th>
-    </tr>
-</table>
+<html>
+<head>
+    <title>Faction Statistics</title>
+    <script src="/faction.js" charset="utf-8" defer></script>
+</head>
+<body>
+    <div class="page-title">All Factions Played:</div>
+    <div class="search-bar">
+        Search for Player Name, Faction, or Board:
+        <input type="text" placeholder="type here" id="faction-search" onkeyup="searchFactionTable()">
+    </div>
+    <table id="faction-table">
+        <thead>
+            <tr>
+                <th>Faction ID</th>
+                <th>Player ID</th>
+                <th>Game ID</th>
+                <th>Player Name</th>
+                <th>Faction Name</th>
+                <th>Player Board</th>
+                <th>Coins</th>
+                <th>Popularity</th>
+                <th>Stars</th>
+                <th>Tiles Controlled</th>
+                <th>Resources</th>
+                <th class="delete">Delete</th>
+            </tr>
+        </thead>
+        <tbody id="factionTableBody">
+            {{!-- faction rows will be dynamically added here --}}
+        </tbody>
+    </table>
+</body>
+</html>

@@ -1,35 +1,22 @@
-<div class="page-title">Game Results:</div>
-<table>
-    <tr>
-        <th>Game ID</th>
-        <th>Setup ID</th>
-        <th>Winning Player</th>
-        <th>Players</th>
-        <th>Date Played</th>
-        <th class="delete">Delete</th>
-    </tr>
-    <tr>
-        <th> - </th>
-        <th> </th>
-        <th> </th>
-        <th> </th>
-        <th> </th>
-        <th class="delete-row"><button type="button">Delete</button></th>
-    </tr>
-   <tr>
-        <th> - </th>
-        <th> </th>
-        <th> </th>
-        <th> </th>
-        <th> </th>
-        <th class="delete-row"><button type="button">Delete</button></th>
-    </tr>
-    <tr>
-        <th> - </th>
-        <th> </th>
-        <th> </th>
-        <th> </th>
-        <th> </th>
-        <th class="delete-row"><button type="button">Delete</button></th>
-    </tr>
-</table>
+<head>
+    <title>Player List</title>
+    <script src="/game.js" charset="utf-8" defer></script>
+</head>
+    <body>
+        <div class="page-title">Game Results:</div>
+        <table class="game-table">
+            <thead>
+                <tr>
+                    <th>Game ID</th>
+                    <th>Setup ID</th>
+                    <th>Winning Player</th>
+                    <th>Players</th>
+                    <th>Date Played</th>
+                    <th class="delete">Delete</th>
+                </tr>
+            </thead>
+            <tbody id="gameTableBody">
+                {{!-- Game rows will be dynamically added here --}}
+            </tbody>
+        </table>
+    </body>
