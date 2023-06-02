@@ -31,15 +31,17 @@ async function renderFactionList() {
 }
 
 
-function deleteFaction(factionID) {
+async function deleteFaction(factionID) {
     // Perform delete operation for the given factionID
     const factionTableBody = document.getElementById("factionTableBody");
   
     console.log(`Deleting faction with ID: ${factionID}`);
     const selectfactionRow = document.getElementById(factionID); // Assuming there is only one row with the specified factionID
-    console.log("selectfactionRow: " + selectfactionRow);
-    console.log("selectfactionRow.innerHTML: " + selectfactionRow.innerHTML);
-    console.log("factionTableBody.innerHTML: " + factionTableBody.innerHTML);
+    // console.log("selectfactionRow: " + selectfactionRow);
+    // console.log("selectfactionRow.innerHTML: " + selectfactionRow.innerHTML);
+    // console.log("factionTableBody.innerHTML: " + factionTableBody.innerHTML);
+    await fetch('http://flip1.engr.oregonstate.edu:3988/api?name=GameFaction&operation=delete&id='+factionID)
+
     factionTableBody.removeChild(selectfactionRow);
   }
 

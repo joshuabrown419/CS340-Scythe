@@ -24,15 +24,17 @@ async function renderPlayerList() {
 }
 
 
-function deletePlayer(playerID) {
+async function deletePlayer(playerID) {
     // Perform delete operation for the given playerID
     const playerTableBody = document.getElementById("playerTableBody");
   
     console.log(`Deleting player with ID: ${playerID}`);
     const selectPlayerRow = document.getElementById(playerID); // Assuming there is only one row with the specified playerID
-    console.log("selectPlayerRow: " + selectPlayerRow);
-    console.log("selectPlayerRow.innerHTML: " + selectPlayerRow.innerHTML);
-    console.log("playerTableBody.innerHTML: " + playerTableBody.innerHTML);
+    // console.log("selectPlayerRow: " + selectPlayerRow);
+    // console.log("selectPlayerRow.innerHTML: " + selectPlayerRow.innerHTML);
+    // console.log("playerTableBody.innerHTML: " + playerTableBody.innerHTML);
+
+    await fetch('http://flip1.engr.oregonstate.edu:3988/api?name=Player&operation=delete&id='+playerID)
     playerTableBody.removeChild(selectPlayerRow);
   }
 

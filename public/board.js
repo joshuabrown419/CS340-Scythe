@@ -24,15 +24,17 @@ async function renderBoardList() {
 }
 
 
-function deleteBoard(boardID) {
+async function deleteBoard(boardID) {
     // Perform delete operation for the given boardID
     const boardTableBody = document.getElementById("boardTableBody");
   
     console.log(`Deleting board with ID: ${boardID}`);
     const selectboardRow = document.getElementById(boardID); // Assuming there is only one row with the specified boardID
-    console.log("selectboardRow: " + selectboardRow);
-    console.log("selectboardRow.innerHTML: " + selectboardRow.innerHTML);
-    console.log("boardTableBody.innerHTML: " + boardTableBody.innerHTML);
+    // console.log("selectboardRow: " + selectboardRow);
+    // console.log("selectboardRow.innerHTML: " + selectboardRow.innerHTML);
+    // console.log("boardTableBody.innerHTML: " + boardTableBody.innerHTML);
+    await fetch('http://flip1.engr.oregonstate.edu:3988/api?name=GameSetup&operation=delete&id='+boardID)
+
     boardTableBody.removeChild(selectboardRow);
   }
 

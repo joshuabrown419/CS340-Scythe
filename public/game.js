@@ -7,7 +7,6 @@ async function getGameData() {
 async function renderGameList() {
     const gameList = await getGameData();
     const gameTableBody = document.getElementById("gameTableBody");
-    console.log("GameList: " + gameList)
     gameList.forEach(game => {
         gameTableBody.innerHTML += 
             `<tr id="${game.gameID}">
@@ -24,15 +23,13 @@ async function renderGameList() {
 }
 
 
-function deleteGame(gameSetupID) {
+async function deleteGame(gameID) {
     // Perform delete operation for the given GameID
     const gameTableBody = document.getElementById("gameTableBody");
-  
-    console.log(`Deleting game with ID: ${gameSetupID}`);
-    const selectGameRow = document.getElementById(gameSetupID); // Assuming there is only one row with the specified gameID
-    console.log("selectGameRow: " + selectGameRow);
-    console.log("selectGameRow.innerHTML: " + selectGameRow.innerHTML);
-    console.log("GameTableBody.innerHTML: " + gameTableBody.innerHTML);
+    console.log(`Deleting game with ID: ${gameID}`);
+    const selectGameRow = document.getElementById(gameID); // Assuming there is only one row with the specified gameID
+    
+    await fetch('http://flip1.engr.oregonstate.edu:3988/api?name=Game&operation=delete&id='+gameID)
     gameTableBody.removeChild(selectGameRow);
   }
 
