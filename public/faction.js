@@ -45,4 +45,33 @@ async function deleteFaction(factionID) {
     factionTableBody.removeChild(selectfactionRow);
   }
 
+
+  function searchFactionTable() {
+    // Declare variables
+    var input, filter, table, tr, tdfaction, tdboard, tdname, i, txtValue;
+    input = document.getElementById("faction-search");
+    filter = input.value.toUpperCase();
+    table = document.getElementById("faction-table");
+    tr = table.getElementsByTagName("tr");
+  
+    // Loop through all table rows, and hide those who don't match the search query
+    for (i = 0; i <tr.length; i++) {
+        tdname = tr[i].getElementsByTagName("td")[3];
+        tdfaction = tr[i].getElementsByTagName("td")[4];
+        tdboard = tr[i].getElementsByTagName("td")[5];
+        if (tdname) {
+            txtValueName = tdname.textContent || tdname.innerText;
+            txtValueFaction = tdfaction.textContent || tdfaction.innerText;
+            txtValueBoard = tdboard.textContent || tdboard.innerText;
+
+            if ((txtValueName.toUpperCase().indexOf(filter) > -1) || (txtValueFaction.toUpperCase().indexOf(filter) > -1) || (txtValueBoard.toUpperCase().indexOf(filter) > -1)) {
+                tr[i].style.display = "";
+            } else {
+                tr[i].style.display = "none";
+            }
+        }
+    }
+  }
+
+
   renderFactionList();

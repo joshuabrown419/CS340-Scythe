@@ -5,7 +5,11 @@
 </head>
 <body>
     <div class="page-title">All Factions Played:</div>
-    <table class="faction-table">
+    <div class="search-bar">
+        Search for Player Name, Faction, or Board:
+        <input type="text" placeholder="type here" id="faction-search" onkeyup="searchFactionTable()">
+    </div>
+    <table id="faction-table">
         <thead>
             <tr>
                 <th>Faction ID</th>
