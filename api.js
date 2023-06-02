@@ -296,7 +296,7 @@ function handleGameFactionRequest(req, res) {
     } else if(req.query.operation === 'insert') {
         console.log(req)
         if(req.query.playerName && req.query.gameID && req.query.endingCoins
-        && req.query.endingPopulatiry && req.query.starsPlaced && req.query.tilesControlled
+        && req.query.endingPopularity && req.query.starsPlaced && req.query.tilesControlled
         && req.query.faction && req.query.playerBoard && req.query.resources) {
             db.pool.query(`SELECT playerName
             FROM Player
