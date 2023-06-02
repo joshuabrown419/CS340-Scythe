@@ -342,11 +342,11 @@ function handleGameFactionRequest(req, res) {
                     })
                 }
             })
-        } else if (req.query.gameID && req.query.endingCoins && req.query.endingPopulatiry
+        } else if (req.query.gameID && req.query.endingCoins && req.query.endingPopularity
         && req.query.starsPlaced && req.query.tilesControlled && req.query.faction
         && req.query.playerBoard && req.query.resources) {
             db.pool.query(`INSERT INTO GameFaction (playerID, gameID, endingCoins, endingPopularity, starsPlaced, tilesControlled, faction, playerBoard, resources)
-            VALUES (NULL, ` + req.query.gameID + `, ` + req.query.endingCoins + `, ` + req.query.endingPopulariy + `, ` + req.query.starsPlaced + `, ` + req.query.tilesControlled + `, "` + req.query.faction + `", "` + req.query.playerBoard + `", ` + req.query.resources + `);`, function(err, result) {
+            VALUES (NULL, ` + req.query.gameID + `, ` + req.query.endingCoins + `, ` + req.query.endingPopularity + `, ` + req.query.starsPlaced + `, ` + req.query.tilesControlled + `, "` + req.query.faction + `", "` + req.query.playerBoard + `", ` + req.query.resources + `);`, function(err, result) {
                 if (err) {
                     console.log(err)
                     res.sendStatus(400);
@@ -359,13 +359,13 @@ function handleGameFactionRequest(req, res) {
         }
     } else if(req.query.operation === 'update') {
         if(!(req.query.id && req.query.playerName && req.query.gameID && req.query.endingCoins
-        && req.query.endingPopulatiry && req.query.starsPlaced && req.query.tilesControlled
+        && req.query.endingPopularity && req.query.starsPlaced && req.query.tilesControlled
         && req.query.faction && req.query.playerBoard && req.query.resources)) {
             res.sendStatus(400)
         }
         
         db.pool.query(`UPDATE GameFaction SET
-            playerID = (SELECT playerID FROM Player WHERE playerName = "` + req.query.playerName + `"), gameID = ` + req.query.gameID + `, endingCoins = ` + req.query.endingCoins + `, endingPopularity = ` + req.query.endingPopulatiry + `, starsPlaced = ` + req.query.starsPlaced + `, tilesController = ` + req.query.tilesControlled + `, faction = "` + req.query.faction + `", playerBoard = "` + req.query.playerBoard + `", resources = ` + req.query.resources + `;`, function(err, result) {
+            playerID = (SELECT playerID FROM Player WHERE playerName = "` + req.query.playerName + `"), gameID = ` + req.query.gameID + `, endingCoins = ` + req.query.endingCoins + `, endingPopularity = ` + req.query.endingPopularity + `, starsPlaced = ` + req.query.starsPlaced + `, tilesController = ` + req.query.tilesControlled + `, faction = "` + req.query.faction + `", playerBoard = "` + req.query.playerBoard + `", resources = ` + req.query.resources + `;`, function(err, result) {
             if (err) {
                 console.log(err)
                 res.sendStatus(400);
