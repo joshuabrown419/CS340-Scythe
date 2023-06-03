@@ -3,7 +3,7 @@ const express = require('express');
 const expresshbs = require('express-handlebars');
 const { nextTick } = require('process');
 const playerData = require('./playerData.json');
-const cors = require('cors');
+// const cors = require('cors');
 const api = require('./api')
 
 const app = express();
@@ -13,9 +13,9 @@ app.engine('handlebars', expresshbs.engine({
     defaultLayout: "main"
 }));
 
-app.use(cors({
-     origin: 'http://localhost:3988'
- }));
+// app.use(cors({
+//      origin: 'http://localhost:3988'
+//  }));
 
 app.set('view engine', 'handlebars')
 

@@ -59,10 +59,11 @@ function updatePlayers(){
                 </select>
             </div>
         <div class="player-popularity">Popularity (0-18): <input type="text" id="player-${i}-popularity"></div>
-        <div class="player-coins">Coins at End: <input type="text" id="player-${i}-coins"></div>
+        <div class="player-coins">Coins+BuildTile: <input type="text" id="player-${i}-coins"></div>
         <div class="player-stars">Stars (0-6): <input type="text" id="player-${i}-stars"></div>
         <div class="player-tiles">Territories: <input type="text" id="player-${i}-tiles"></div>
         <div class="player-resources">Resources: <input type="text" id="player-${i}-resources"></div>
+        <div>Final Score will be calculated</div>
         </div>`
     }
     //Add new event listeners
