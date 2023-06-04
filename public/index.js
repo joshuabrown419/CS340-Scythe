@@ -1,5 +1,4 @@
 //click links to take you from page to page
-
 var pageURL = "/"
 
 var homePage = document.getElementById("home-link") 
@@ -10,6 +9,8 @@ var playerPage = document.getElementById("player-link")
 var boardPage = document.getElementById("board-link") 
 var insertPage = document.getElementById("insert-link") 
 
+var closePopupButton = document.getElementById("close-popup")
+closePopupButton.addEventListener("click", function(){closePopup()})
 
 homePage.addEventListener('click', function(){
     // removeToggleButtons()
@@ -37,11 +38,13 @@ insertPage.addEventListener('click', function(){
 
 
 
-// function removeToggleButtons(){
-//     for (var i = 1; i <= 7; i++){
-//         let classButton = document.getElementById("toggle-player-"+i)
-//         classButton.removeEventListener("click", function(){
-//             console.log("removed listener "+i)
-//         }) 
-//     }
-// }
+function giveError(message){
+    const popup = document.getElementById("popup-error")
+    const errorText = document.getElementById("popup-text")
+    popup.removeAttribute("hidden")
+    errorText.innerHTML = message
+}
+function closePopup(){
+    const popup = document.getElementById("popup-error")
+    popup.setAttribute("hidden", "true")
+}

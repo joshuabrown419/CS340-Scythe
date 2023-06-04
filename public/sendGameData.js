@@ -14,9 +14,27 @@ submitGame.addEventListener('click', async function(){
     console.log("Expansions: " + expansionsUsed)
     // console.log("Board Used:" + boardUsed)
     // console.log("Build Score Tile: " + buildScoreTile)
-    if (expansionsUsed == null){
+    if (expansionsUsed == ""){
         expansionsUsed = "None"
     }
+
+    console.log("Checking Game Date")
+    console.log(gameDate[4] + gameDate[5])
+    var day = parseInt(gameDate[4] + gameDate[5])
+    console.log(gameDate.substr(6,7))
+    var month = parseInt(gameDate.substr(6,7))
+    if (!isNumber(gameDate)){
+        giveError("Game Date is not a number!")
+        return
+    } else if (gameDate.length != 8 || (month > 12) || (day > 31)){
+        console.log(gameDate.substr(4,5))
+        console.log(gameDate.substr(6,7))
+        giveError("Game Date is not in a valid format!")
+        return
+    }
+
+    console.log("Game Date is Good!")
+
     const changePlayerCount = document.getElementById("insert-player-count");
 
     //Game Setup
@@ -43,13 +61,36 @@ submitGame.addEventListener('click', async function(){
         var stars = document.getElementById("player-"+i+"-stars").value
         var tiles = document.getElementById("player-"+i+"-tiles").value
         var resources = document.getElementById("player-"+i+"-resources").value
-        // console.log("faction: " +faction)
-        // console.log("board: " +board)
-        // console.log("coins: " +coins)
-        // console.log("popularity: " +popularity)
-        // console.log("stars: " +stars)
-        // console.log("tiles: " +tiles)
-        // console.log("resources: " +resources)
+        
+        if (!isNumber(coins) || (0 > coins)){
+            giveError("Player "+i+" coins is not filled correctly!")
+            return
+        }
+        console.log("coins is Good!")
+
+        if (!isNumber(popularity) || (popularity > 18)){
+            giveError("Player "+i+" popularity is not filled correctly!")
+            return
+        }
+        console.log("popularity is Good!")
+
+        if (!isNumber(stars) || (stars > 6)){
+            giveError("Player "+i+" stars is not filled correctly!")
+            return
+        }
+        console.log("stars is Good!")
+
+        if (!isNumber(tiles) || (0 > tiles)){
+            giveError("Player "+i+" tiles is not filled correctly!")
+            return
+        }
+        console.log("tiles is Good!")
+
+        if (!isNumber(resources) || (0 > resources)){
+            giveError("Player "+i+" resources is not filled correctly!")
+            return
+        }
+        console.log("resources is Good!")
 
         const gameSetup = {
             expansionsUsed: expansionsUsed.value,
@@ -67,5 +108,14 @@ submitGame.addEventListener('click', async function(){
 const isHidden = elem => {
     const styles = window.getComputedStyle(elem)
     return styles.display === 'none' || styles.visibility === 'hidden'
-  }
+}
+
+function isNumber(value) {
+    if (value == ""){
+        return false;
+    }
+    if (typeof value === "string") {
+        return !isNaN(value);
+    }
+}
 
