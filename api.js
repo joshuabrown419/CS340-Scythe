@@ -7,7 +7,7 @@ function handlePlayerRequest(req, res) {
 playerID,
 playerName,
 (SELECT COUNT(*) FROM PlayerGameIntersection WHERE Player.playerID = PlayerGameIntersection.playerID) AS gamesPlayed,
-(SELECT COUNT(*) FROM (SELECT gf.playerID FROM GameFaction gf WHERE gf.playerID = Player.playerID AND (gf.endingCoins + gf.endingPopularity + gf.starsPlaced + gf.tilesControlled + gf.resources) = (SELECT MAX(gf2.endingCoins + gf2.endingPopularity + gf2.starsPlaced + gf2.tilesControlled + gf2.resources) FROM GameFaction gf2 WHERE gf2.gameID = g.gameID))) gamesWonTable) as gamesWon
+(SELECT COUNT(*) FROM (SELECT gf.playerID FROM GameFaction gf WHERE gf.playerID = Player.playerID AND (gf.endingCoins + gf.endingPopularity + gf.starsPlaced + gf.tilesControlled + gf.resources) = (SELECT MAX(gf2.endingCoins + gf2.endingPopularity + gf2.starsPlaced + gf2.tilesControlled + gf2.resources) FROM GameFaction gf2 WHERE gf2.gameID = g.gameID)) gamesWonTable) as gamesWon
 
 FROM Player;`, function (err, result) {
                 if (err) {
