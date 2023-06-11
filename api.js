@@ -3,10 +3,13 @@ const db = require('./database-connector')
 function handlePlayerRequest(req, res) {
     if(req.query.operation === 'select') {
         if(!req.query.id){
-            db.pool.query(`SELECT playerID, playerName,
-            (SELECT COUNT(*) FROM PlayerGameIntersection WHERE Player.playerID = PlayerGameIntersection.playerID) AS gamesPlayed,
-            (SELECT COUNT(*) FROM (SELECT playerID, MAX(endingCoins + endingPopularity + starsPlaced + tilesControlled + resources) FROM GameFaction GROUP BY gameID) a WHERE a.playerID = Player.playerID) AS gamesWon
-            FROM Player;`, function (err, result) {
+            db.pool.query(`SELECT
+playerID,
+playerName,
+(SELECT COUNT(*) FROM PlayerGameIntersection WHERE p.playerID = PlayerGameIntersection.playerID) AS gamesPlayed,
+(SELECT COUNT(*) FROM GameFaction gf WHERE gf.playerID = p.playerID AND (gf.endingCoins + gf.endingPopularity + gf.starsPlaced + gf.tilesControlled + gf.resources) = (SELECT MAX(gf2.endingCoins + gf2.endingPopularity + gf2.starsPlaced + gf2.tilesControlled + gf2.resources) FROM GameFaction gf2 WHERE gf2.gameID = gf.gameID)) as gamesWon
+
+FROM Player p;`, function (err, result) {
                 if (err) {
                     console.log(err)
                     res.sendStatus(400);
@@ -97,7 +100,7 @@ function handleGameRequest(req, res) {
     if(req.query.operation === 'select'){
         if(!req.query.id) {
             db.pool.query(`SELECT gameID, gameSetupID, gameDate,
-            (SELECT COUNT(*) FROM PlayerGameIntersection pgi WHERE pgi.gameID = g.gameID) as playerCount,
+            (SELECT COUNT(*) FROM GameFaction pgi WHERE pgi.gameID = g.gameID) as playerCount,
             (SELECT p.playerName as playerName FROM GameFaction gf INNER JOIN Player p ON gf.playerID = p.playerID WHERE (gf.gameID = g.gameID AND (gf.endingCoins + gf.endingPopularity + gf.starsPlaced + gf.tilesControlled + gf.resources) = (SELECT MAX(gf2.endingCoins + gf2.endingPopularity + gf2.starsPlaced + gf2.tilesControlled + gf2.resources) FROM GameFaction gf2 WHERE gf2.gameID = g.gameID))) as winningPlayer
             FROM Game g
             ORDER BY gameDate DESC, gameID ASC;`, function (err, result) {
@@ -228,14 +231,30 @@ function handleGameSetupRequest(req, res) {
             return;
         }
         
-        db.pool.query("INSERT INTO GameSetup (expansionsUsed, gameBoard, buildScoreTile) VALUES (\"" + req.query.expansionsUsed + "\", \"" + req.query.gameBoard + "\", \"" + req.query.buildScoreTile + "\");", function(err, result) {
+        db.pool.query(`SELECT gameSetupID FROM GameSetup
+        WHERE expansionsUsed = "` + req.query.expansionsUsed + `" AND gameBoard = "` + req.query.gameBoard + `" AND buildScoreTile = "` + req.query.buildScoreTile + `"`,
+        function(err, result) {
             if (err) {
                 console.log(err)
                 res.sendStatus(400);
                 return;
             }
-            res.send(result.insertId.toString())
+            
+            if(result[0]) {
+                res.send(String(result[0].gameSetupID))
+            } else {
+                db.pool.query("INSERT INTO GameSetup (expansionsUsed, gameBoard, buildScoreTile) VALUES (\"" + req.query.expansionsUsed + "\", \"" + req.query.gameBoard + "\", \"" + req.query.buildScoreTile + "\");", function(err, result) {
+                    if (err) {
+                        console.log(err)
+                        res.sendStatus(400);
+                        return;
+                    }
+                    res.send(result.insertId.toString())
+                })
+            }
         })
+        
+        
     } else if(req.query.operation === 'update') {
         if(!(req.query.expansionsUsed && req.query.gameBoard && req.query.buildScoreTile && req.query.id)) {
             res.sendStatus(400);
@@ -258,9 +277,9 @@ function handleGameSetupRequest(req, res) {
 function handleGameFactionRequest(req, res) {
     if(req.query.operation === 'select'){
         if(!req.query.id) {
-            db.pool.query(`SELECT gf.gameFactionID, gf.playerID, gf.gameID, gf.endingCoins, gf.endingPopularity, gf.starsPlaced, gf.tilesControlled, gf.faction, gf.playerBoard, gf.resources, p.playerName
-            FROM GameFaction gf
-            INNER JOIN Player p ON p.playerID = gf.playerID`, function(err, result) {
+            db.pool.query(`SELECT gf.gameFactionID, gf.playerID, gf.gameID, gf.endingCoins, gf.endingPopularity, gf.starsPlaced, gf.tilesControlled, gf.faction, gf.playerBoard, gf.resources, (SELECT playerName FROM Player WHERE Player.playerID = gf.playerID) as playerName
+            FROM GameFaction gf`,
+            function(err, result) {
                 if (err) {
                     console.log(err)
                     res.sendStatus(400);
@@ -364,15 +383,48 @@ function handleGameFactionRequest(req, res) {
             res.sendStatus(400)
         }
         
-        db.pool.query(`UPDATE GameFaction SET 
-            playerID = (SELECT playerID FROM Player WHERE playerName = "` + req.query.playerName + `"), gameID = ` + req.query.gameID + `, endingCoins = ` + req.query.endingCoins + `, endingPopularity = ` + req.query.endingPopularity + `, starsPlaced = ` + req.query.starsPlaced + `, tilesControlled = ` + req.query.tilesControlled + `, faction = "` + req.query.faction + `", playerBoard = "` + req.query.playerBoard + `", resources = ` + req.query.resources + ` WHERE gameFactionID = ` + req.query.id + `;`, function(err, result) {
+        db.pool.query(`SELECT playerID FROM Player WHERE playerName = "` + req.query.playerName + `";`, function(err, result) {
             if (err) {
                 console.log(err)
                 res.sendStatus(400);
                 return;
             }
-            res.sendStatus(200)
-        });
+            if(result[0]) {
+                db.pool.query(`INSERT INTO PlayerGameIntersection (playerID, gameID)
+                VALUES ((SELECT playerID FROM Player WHERE playerName = "` + req.query.playerName + "\"), " + req.query.gameID + ");", function(err, result) {})
+                db.pool.query(`UPDATE GameFaction SET 
+                playerID = (SELECT playerID FROM Player WHERE playerName = "` + req.query.playerName + `"), gameID = ` + req.query.gameID + `, endingCoins = ` + req.query.endingCoins + `, endingPopularity = ` + req.query.endingPopularity + `, starsPlaced = ` + req.query.starsPlaced + `, tilesControlled = ` + req.query.tilesControlled + `, faction = "` + req.query.faction + `", playerBoard = "` + req.query.playerBoard + `", resources = ` + req.query.resources + ` WHERE gameFactionID = ` + req.query.id + `;`, function(err, result) {
+                    if (err) {
+                        console.log(err)
+                        res.sendStatus(400);
+                        return;
+                    }
+                    res.sendStatus(200)
+                });
+            } else {
+                db.pool.query(`INSERT INTO PlayerGameIntersection (playerID, gameID)
+                VALUES ((SELECT playerID FROM Player WHERE playerName = "` + req.query.playerName + "\"), " + req.query.gameID + ");", function(err, result) {})
+                db.pool.query("INSERT INTO Player (playerName) VALUES (\"" + req.query.playerName + "\");", function(err, result) {
+                    if (err) {
+                        console.log(err)
+                        res.sendStatus(400);
+                        return;
+                    }
+                    db.pool.query(`INSERT INTO PlayerGameIntersection (playerID, gameID)
+                    VALUES ((SELECT playerID FROM Player WHERE playerName = "` + req.query.playerName + "\"), " + req.query.gameID + ");", function(err, result) {})
+                    db.pool.query(`UPDATE GameFaction SET 
+                    playerID = (SELECT playerID FROM Player WHERE playerName = "` + req.query.playerName + `"), gameID = ` + req.query.gameID + `, endingCoins = ` + req.query.endingCoins + `, endingPopularity = ` + req.query.endingPopularity + `, starsPlaced = ` + req.query.starsPlaced + `, tilesControlled = ` + req.query.tilesControlled + `, faction = "` + req.query.faction + `", playerBoard = "` + req.query.playerBoard + `", resources = ` + req.query.resources + ` WHERE gameFactionID = ` + req.query.id + `;`, function(err, result) {
+                        if (err) {
+                            console.log(err)
+                            res.sendStatus(400);
+                            return;
+                        }
+                        res.sendStatus(200)
+                    });
+                })
+            }
+        })
+        
     } else {
         res.status(400)
     }

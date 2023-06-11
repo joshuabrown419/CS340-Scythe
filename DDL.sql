@@ -7,13 +7,13 @@ CREATE TABLE GameSetup (
     gameBoard       varchar(50)     NOT NULL,
     buildScoreTile  varchar(50)     NOT NULL,
 
-    PRIMARY KEY (gameSetupID)
---    CONSTRAINT uniqueSetup UNIQUE (expansionsUsed, gameBoard, buildScoreTile)
+    PRIMARY KEY (gameSetupID),
+    CONSTRAINT uniqueSetup UNIQUE (expansionsUsed, gameBoard, buildScoreTile)
 );
 
 INSERT INTO GameSetup (expansionsUsed, gameBoard, buildScoreTile)
-VALUES ('Invaders From Afar', 'Modular', 'Buildings On Villages'),
-(NULL, 'Standard', 'Lakes Adjacent to Buildings');
+VALUES ('Invaders from Afar', 'Modular', 'Buildings On Villages'),
+('None', 'Standard', 'Lakes Adjacent to Buildings');
 
 SELECT * FROM GameSetup;
 
