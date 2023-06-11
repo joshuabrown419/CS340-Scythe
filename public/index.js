@@ -41,8 +41,18 @@ insertPage.addEventListener('click', function(){
 function giveError(message){
     const popup = document.getElementById("popup-error")
     const errorText = document.getElementById("popup-text")
+    const errorHeader = document.getElementById("popup-caption")
     popup.removeAttribute("hidden")
     errorText.innerHTML = message
+    errorHeader.innerHTML = "<h2>Error with Insert:</h2>"
+}
+function showInsert(playerScores){
+    const popup = document.getElementById("popup-error")
+    const displayHeader = document.getElementById("popup-caption")
+    const displayText = document.getElementById("popup-text")
+    popup.removeAttribute("hidden")
+    displayHeader.innerHTML = "<h2>Insert Succeesful, Displaying player scores</h2>"
+    displayText.innerHTML = playerScores
 }
 function closePopup(){
     const popup = document.getElementById("popup-error")

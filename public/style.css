@@ -121,16 +121,16 @@ th{
 
 /* popup */
 .popup{
+    
     position: absolute;
     top: 41%;
     left: 40%;
     margin-top: -50px;
     margin-left: -50px;
-    width: 20%;
-    height: 18%;
+    width: max-content;
+    height:fit-content;
     z-index: 100;;
     background-color: #a7a7a7;
-    border-radius: 15%;
 }
 .popup button{
     display: block;
