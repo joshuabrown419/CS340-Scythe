@@ -4,9 +4,9 @@ function handlePlayerRequest(req, res) {
     if(req.query.operation === 'select') {
         if(!req.query.id){
             db.pool.query(`SELECT playerID, playerName,
-            (SELECT COUNT(*) FROM PlayerGameIntersection WHERE Player.playerID = PlayerGameIntersection.playerID) AS gamesPlayed,
-            (SELECT COUNT(*) FROM (SELECT playerID, MAX(endingCoins + endingPopularity + starsPlaced + tilesControlled + resources) FROM GameFaction GROUP BY gameID) a WHERE a.playerID = Player.playerID) AS gamesWon
-            FROM Player;`, function (err, result) {
+            (SELECT COUNT(*) FROM PlayerGameIntersection WHERE p.playerID = PlayerGameIntersection.playerID) AS gamesPlayed,
+            (SELECT COUNT(*) FROM (SELECT playerID, MAX(endingCoins + endingPopularity + starsPlaced + tilesControlled + resources) FROM GameFaction GROUP BY gameID) a WHERE a.playerID = p.playerID) AS gamesWon
+            FROM Player p;`, function (err, result) {
                 if (err) {
                     console.log(err)
                     res.sendStatus(400);
