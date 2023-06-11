@@ -4,14 +4,12 @@ function handlePlayerRequest(req, res) {
     if(req.query.operation === 'select') {
         if(!req.query.id){
             db.pool.query(`SELECT
-                            playerID,
-                            playerName,
-                            (SELECT COUNT(*) FROM PlayerGameIntersection WHERE Player.playerID = PlayerGameIntersection.playerID) AS gamesPlayed,
-                            (SELECT COUNT(*) FROM (SELECT playerID, MAX(endingCoins + endingPopularity + starsPlaced + tilesControlled + resources) FROM GameFaction GROUP BY gameID) a WHERE a.playerID = Player.playerID) AS gamesWon
-                            
-                            (SELECT COUNT(*) FROM (SELECT gf.playerID FROM GameFaction gf WHERE gf.playerID = Player.playerID AND (gf.endingCoins + gf.endingPopularity + gf.starsPlaced + gf.tilesControlled + gf.resources) = (SELECT MAX(gf2.endingCoins + gf2.endingPopularity + gf2.starsPlaced + gf2.tilesControlled + gf2.resources) FROM GameFaction gf2 WHERE gf2.gameID = g.gameID))) gamesWon)
-                            
-                            FROM Player;`, function (err, result) {
+playerID,
+playerName,
+(SELECT COUNT(*) FROM PlayerGameIntersection WHERE Player.playerID = PlayerGameIntersection.playerID) AS gamesPlayed,
+(SELECT COUNT(*) FROM (SELECT gf.playerID FROM GameFaction gf WHERE gf.playerID = Player.playerID AND (gf.endingCoins + gf.endingPopularity + gf.starsPlaced + gf.tilesControlled + gf.resources) = (SELECT MAX(gf2.endingCoins + gf2.endingPopularity + gf2.starsPlaced + gf2.tilesControlled + gf2.resources) FROM GameFaction gf2 WHERE gf2.gameID = g.gameID))) gamesWonTable) as gamesWon
+
+FROM Player;`, function (err, result) {
                 if (err) {
                     console.log(err)
                     res.sendStatus(400);
