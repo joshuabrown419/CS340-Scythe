@@ -383,7 +383,7 @@ function handleGameFactionRequest(req, res) {
             res.sendStatus(400)
         }
         
-        db.pool.query(`SELECT playerID WHERE playerName = "` + req.query.playerName + `" FROM Player;`, function(err, result) {
+        db.pool.query(`SELECT playerID FROM Player WHERE playerName = "` + req.query.playerName + `";`, function(err, result) {
             if (err) {
                 console.log(err)
                 res.sendStatus(400);
