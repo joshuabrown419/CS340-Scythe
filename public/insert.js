@@ -92,6 +92,4 @@ function updatePlayers(){
             })
         }
     }
-
-    // console.log("playerID: "+playerID)
 }

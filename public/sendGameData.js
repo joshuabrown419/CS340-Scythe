@@ -67,7 +67,16 @@ submitGame.addEventListener('click', async function(){
             return
         }
         console.log("coins is Good!")
-
+        if (faction){
+            giveError("Player "+i+" coins is not filled correctly!")
+            return
+        }
+        console.log("coins is Good!")
+        if (!isNumber(coins) || (0 > coins)){
+            giveError("Player "+i+" coins is not filled correctly!")
+            return
+        }
+        console.log("coins is Good!")
         if (!isNumber(popularity) || (popularity > 18)){
             giveError("Player "+i+" popularity is not filled correctly!")
             return
