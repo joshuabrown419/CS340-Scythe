@@ -273,7 +273,7 @@ function handleGameSetupRequest(req, res) {
     } else {
         res.status(400)
     }
-    res.send(result[0].gameSetupID)}
+}
 
 function handleGameFactionRequest(req, res) {
     if(req.query.operation === 'select'){
