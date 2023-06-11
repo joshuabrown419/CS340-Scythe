@@ -228,14 +228,30 @@ function handleGameSetupRequest(req, res) {
             return;
         }
         
-        db.pool.query("INSERT INTO GameSetup (expansionsUsed, gameBoard, buildScoreTile) VALUES (\"" + req.query.expansionsUsed + "\", \"" + req.query.gameBoard + "\", \"" + req.query.buildScoreTile + "\");", function(err, result) {
+        db.pool.query(`SELECT gameSetupID FROM GameSetup
+        WHERE expansionsUsed = "` + req.query.expansionsUsed + `" AND gameBoard = "` + req.query.gameBoard + `" AND buildScoreTile = "` + req.query.buildScoreTile + `"`,
+        function(err, result) {
             if (err) {
                 console.log(err)
                 res.sendStatus(400);
                 return;
             }
-            res.send(result.insertId.toString())
+            
+            if(result[0]) {
+                res.send(result[0].gameSetupID)
+            } else {
+                db.pool.query("INSERT INTO GameSetup (expansionsUsed, gameBoard, buildScoreTile) VALUES (\"" + req.query.expansionsUsed + "\", \"" + req.query.gameBoard + "\", \"" + req.query.buildScoreTile + "\");", function(err, result) {
+                    if (err) {
+                        console.log(err)
+                        res.sendStatus(400);
+                        return;
+                    }
+                    res.send(result.insertId.toString())
+                })
+            }
         })
+        
+        
     } else if(req.query.operation === 'update') {
         if(!(req.query.expansionsUsed && req.query.gameBoard && req.query.buildScoreTile && req.query.id)) {
             res.sendStatus(400);
