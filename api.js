@@ -383,15 +383,48 @@ function handleGameFactionRequest(req, res) {
             res.sendStatus(400)
         }
         
-        db.pool.query(`UPDATE GameFaction SET 
-            playerID = (SELECT playerID FROM Player WHERE playerName = "` + req.query.playerName + `"), gameID = ` + req.query.gameID + `, endingCoins = ` + req.query.endingCoins + `, endingPopularity = ` + req.query.endingPopularity + `, starsPlaced = ` + req.query.starsPlaced + `, tilesControlled = ` + req.query.tilesControlled + `, faction = "` + req.query.faction + `", playerBoard = "` + req.query.playerBoard + `", resources = ` + req.query.resources + ` WHERE gameFactionID = ` + req.query.id + `;`, function(err, result) {
+        db.pool.query(`SELECT playerID WHERE playerName = "` + req.query.playerName + `" FROM Player;`, function(err, result) {
             if (err) {
                 console.log(err)
                 res.sendStatus(400);
                 return;
             }
-            res.sendStatus(200)
-        });
+            if(result[0]) {
+                db.pool.query(`INSERT INTO PlayerGameIntersection (playerID, gameID)
+                VALUES ((SELECT playerID FROM Player WHERE playerName = "` + req.query.playerName + "\"), " + req.query.gameID + ");", function(err, result) {})
+                db.pool.query(`UPDATE GameFaction SET 
+                playerID = (SELECT playerID FROM Player WHERE playerName = "` + req.query.playerName + `"), gameID = ` + req.query.gameID + `, endingCoins = ` + req.query.endingCoins + `, endingPopularity = ` + req.query.endingPopularity + `, starsPlaced = ` + req.query.starsPlaced + `, tilesControlled = ` + req.query.tilesControlled + `, faction = "` + req.query.faction + `", playerBoard = "` + req.query.playerBoard + `", resources = ` + req.query.resources + ` WHERE gameFactionID = ` + req.query.id + `;`, function(err, result) {
+                    if (err) {
+                        console.log(err)
+                        res.sendStatus(400);
+                        return;
+                    }
+                    res.sendStatus(200)
+                });
+            } else {
+                db.pool.query(`INSERT INTO PlayerGameIntersection (playerID, gameID)
+                VALUES ((SELECT playerID FROM Player WHERE playerName = "` + req.query.playerName + "\"), " + req.query.gameID + ");", function(err, result) {})
+                db.pool.query("INSERT INTO Player (playerName) VALUES (\"" + req.query.playerName + "\");", function(err, result) {
+                    if (err) {
+                        console.log(err)
+                        res.sendStatus(400);
+                        return;
+                    }
+                    db.pool.query(`INSERT INTO PlayerGameIntersection (playerID, gameID)
+                    VALUES ((SELECT playerID FROM Player WHERE playerName = "` + req.query.playerName + "\"), " + req.query.gameID + ");", function(err, result) {})
+                    db.pool.query(`UPDATE GameFaction SET 
+                    playerID = (SELECT playerID FROM Player WHERE playerName = "` + req.query.playerName + `"), gameID = ` + req.query.gameID + `, endingCoins = ` + req.query.endingCoins + `, endingPopularity = ` + req.query.endingPopularity + `, starsPlaced = ` + req.query.starsPlaced + `, tilesControlled = ` + req.query.tilesControlled + `, faction = "` + req.query.faction + `", playerBoard = "` + req.query.playerBoard + `", resources = ` + req.query.resources + ` WHERE gameFactionID = ` + req.query.id + `;`, function(err, result) {
+                        if (err) {
+                            console.log(err)
+                            res.sendStatus(400);
+                            return;
+                        }
+                        res.sendStatus(200)
+                    });
+                })
+            }
+        })
+        
     } else {
         res.status(400)
     }
