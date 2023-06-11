@@ -364,8 +364,8 @@ function handleGameFactionRequest(req, res) {
             res.sendStatus(400)
         }
         
-        db.pool.query(`UPDATE GameFaction SET
-            playerID = (SELECT playerID FROM Player WHERE playerName = "` + req.query.playerName + `"), gameID = ` + req.query.gameID + `, endingCoins = ` + req.query.endingCoins + `, endingPopularity = ` + req.query.endingPopularity + `, starsPlaced = ` + req.query.starsPlaced + `, tilesController = ` + req.query.tilesControlled + `, faction = "` + req.query.faction + `", playerBoard = "` + req.query.playerBoard + `", resources = ` + req.query.resources + `;`, function(err, result) {
+        db.pool.query(`UPDATE GameFaction SET 
+            playerID = (SELECT playerID FROM Player WHERE playerName = "` + req.query.playerName + `"), gameID = ` + req.query.gameID + `, endingCoins = ` + req.query.endingCoins + `, endingPopularity = ` + req.query.endingPopularity + `, starsPlaced = ` + req.query.starsPlaced + `, tilesControlled = ` + req.query.tilesControlled + `, faction = "` + req.query.faction + `", playerBoard = "` + req.query.playerBoard + `", resources = ` + req.query.resources + ` WHERE gameFactionID = ` + req.query.id + `;`, function(err, result) {
             if (err) {
                 console.log(err)
                 res.sendStatus(400);
