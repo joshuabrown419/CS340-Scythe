@@ -36,6 +36,7 @@ function updatePlayers(){
         <div id="player-${i}-name"> Player Name: <input id="player-${i}-text" type="text" id="player-${i}-name"><button id="toggle-player-${i}" type="button">NONE</button></div>
         <div class="player-faction">Faction Used:
                 <select id="player-${i}-faction">
+                    <option value="0">none-selected</option>
                     <option value="Republic of Polania">Republic of Polania</option>
                     <option value="Saxony Empire">Saxony Empire</option>
                     <option value="Crimean Khanate">Crimean Khanate</option>
@@ -49,6 +50,7 @@ function updatePlayers(){
             </div>
             <div class="player-board">Board Used: 
                 <select id="player-${i}-board">
+                    <option value="0">none-selected</option>
                     <option value="Industrial">Industrial</option>
                     <option value="Agricultural">Agricultural</option>
                     <option value="Engineering">Engineering</option>
@@ -59,10 +61,11 @@ function updatePlayers(){
                 </select>
             </div>
         <div class="player-popularity">Popularity (0-18): <input type="text" id="player-${i}-popularity"></div>
-        <div class="player-coins">Coins at End: <input type="text" id="player-${i}-coins"></div>
+        <div class="player-coins">Coins+BuildTile: <input type="text" id="player-${i}-coins"></div>
         <div class="player-stars">Stars (0-6): <input type="text" id="player-${i}-stars"></div>
         <div class="player-tiles">Territories: <input type="text" id="player-${i}-tiles"></div>
         <div class="player-resources">Resources: <input type="text" id="player-${i}-resources"></div>
+        <div>Final Score will be calculated</div>
         </div>`
     }
     //Add new event listeners
@@ -91,6 +94,4 @@ function updatePlayers(){
             })
         }
     }
-
-    // console.log("playerID: "+playerID)
 }

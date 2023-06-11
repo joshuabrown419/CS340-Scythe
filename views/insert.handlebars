@@ -5,7 +5,7 @@
 <div class="insert-game-box">
     <div class="game-type">
         <div class="game-settings">
-            Game Date (YYYYMMDD):
+            Game Date (YYYYDDMM):
             <input type="text" id="game-date">
         </div>
         <div class="game-settings" id="game-players">
@@ -23,10 +23,10 @@
         <div class="game-settings" id="game-expansions">
             Expansions Used:
             <select id="expansions" multiple>
-                <option value="Invaders">Invaders from Afar</option>
-                <option value="Wind Gambit">The Wind Gambit</option>
-                <option value="Encounters">Scythe Encounters</option>
-                <option value="Fenris">Rise of Fenris</option>
+                <option value="Invaders from Afar">Invaders from Afar</option>
+                <option value="The Wind Gambit">The Wind Gambit</option>
+                <option value="Scythe Encounters">Scythe Encounters</option>
+                <option value="Rise of Fenris">Rise of Fenris</option>
             </select>
         </div>
         <div class="game-settings" id="game-board">
@@ -39,20 +39,21 @@
         <div class="game-settings" id="buildscore-tile">
             Build Score Tile:
             <select id="build-tile">
-                <option value="Tunnels-Building">Tunnels next to buildings</option>
-                <option value="Lakes-Building">Lakes next to buildings</option>
-                <option value="Encounters-Building">Encounters next to buildings</option>
-                <option value="on Tunnels">Buildings on Tunnels</option>
-                <option value="In Row">Buildings in a row</option>
-                <option value="on Farms/Tundra">Buildings on farms/tundra</option>
-                <option value="Building-Home/Factory">Buildings next to Home/Factory</option>
-                <option value="on Villages">Buildings on Villages</option>
-                <option value="on Encounters">Buildings on Encounters</option>
-                <option value="Single lake">Buildings next to single lake</option>
-                <option value="on Mountains/Forests">Buildings on mountains/forests</option>
-                <option value="Not Adjacent">Buildings not adjacent</option>
-                <option value="Diamond Formation">Buildings in diamond formation</option>
-                <option value="Single Encounter">Buildings next to single encouter</option>
+                <option value="0">none-selected</option>
+                <option value="Tunnels next to buildings">Tunnels next to buildings</option>
+                <option value="Lakes next to buildings">Lakes next to buildings</option>
+                <option value="Encounters next to buildings">Encounters next to buildings</option>
+                <option value="Buildings on Tunnels">Buildings on Tunnels</option>
+                <option value="Buildings in a row">Buildings in a row</option>
+                <option value="Buildings on farms/tundra">Buildings on farms/tundra</option>
+                <option value="Buildings next to Home/Factory">Buildings next to Home/Factory</option>
+                <option value="Buildings on Villages">Buildings on Villages</option>
+                <option value="Buildings on Encounters">Buildings on Encounters</option>
+                <option value="Buildings next to single lake">Buildings next to single lake</option>
+                <option value="Buildings on mountains/forests">Buildings on mountains/forests</option>
+                <option value="Buildings not adjacent">Buildings not adjacent</option>
+                <option value="Buildings in diamond formation">Buildings in diamond formation</option>
+                <option value="Buildings next to single encouter">Buildings next to single encouter</option>
             </select>
         </div>
         <div class="game-settings">
@@ -64,6 +65,7 @@
             <div id="player-1-name"> Player Name: <input id="player-1-text" type="text" id="player-1-name"><button id="toggle-player-1" type="button">NONE</button></div>
             <div class="player-faction">Faction Used:
                 <select id="player-1-faction">
+                    <option value="0">none-selected</option>
                     <option value="Republic of Polania">Republic of Polania</option>
                     <option value="Saxony Empire">Saxony Empire</option>
                     <option value="Crimean Khanate">Crimean Khanate</option>
@@ -77,6 +79,7 @@
             </div>
             <div class="player-board">Board Used: 
                 <select id="player-1-board">
+                    <option value="0">none-selected</option>
                     <option value="Industrial">Industrial</option>
                     <option value="Agricultural">Agricultural</option>
                     <option value="Engineering">Engineering</option>
@@ -87,10 +90,11 @@
                 </select>
             </div>
             <div class="player-popularity">Popularity (0-18): <input type="text" id="player-1-popularity"></div>
-            <div class="player-coins">Coins at End: <input type="text" id="player-1-coins"></div>
+            <div class="player-coins">Coins+BuildTile: <input type="text" id="player-1-coins"></div>
             <div class="player-stars">Stars (0-6): <input type="text" id="player-1-stars"></div>
             <div class="player-tiles">Territories: <input type="text" id="player-1-tiles"></div>
             <div class="player-resources">Resources: <input type="text" id="player-1-resources"></div>
+            <div>Final Score will be calculated</div>
         </div>
     </div>
 

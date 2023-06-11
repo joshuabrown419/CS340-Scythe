@@ -4,6 +4,52 @@
     <script src="/faction.js" charset="utf-8" defer></script>
 </head>
 <body>
+
+{{!-- Update Faction Table --}}
+    <div class="page-title">Update Faction Table: Faction ID required. Blank cells will retain previous values. </div>
+    <table id="board-update">
+        <tr>
+            <th><input type="text" placeholder="Faction ID" id="update-faction-id"></th>
+            <th><input type="text" placeholder="Player Name" id="update-player-name"></th>
+            <th><input type="text" placeholder="Coins + Build Tile" id="update-ending-coins"></th>
+            <th><input type="text" placeholder="Popularity" id="update-popularity"></th>
+            <th><input type="text" placeholder="Stars Placed" id="update-stars"></th>
+        </tr>
+        <tr>
+            <th><input type="text" placeholder="Territories" id="update-territories"></th>
+            <th><input type="text" placeholder="Resources" id="update-resources"></th>
+            <th>
+                <select id="update-faction">
+                    <option value="0">none-selected</option>
+                    <option value="Republic of Polania">Republic of Polania</option>
+                    <option value="Saxony Empire">Saxony Empire</option>
+                    <option value="Crimean Khanate">Crimean Khanate</option>
+                    <option value="Nordic Kingdoms">Nordic Kingdoms</option>
+                    <option value="Rusviet Union">Rusviet Union</option>
+                    <option value="Clan Albion">Clan Albion</option>
+                    <option value="Togawa Shogunate">Togawa Shogunate</option>
+                    <option value="Vesna">Vesna</option>
+                    <option value="Fenris">Fenris</option>
+                </select>
+            </th>
+            <th>
+                <select id="update-board">
+                    <option value="0">none-selected</option>
+                    <option value="Industrial">Industrial</option>
+                    <option value="Agricultural">Agricultural</option>
+                    <option value="Engineering">Engineering</option>
+                    <option value="Patriotic">Patriotic</option>
+                    <option value="Mechanical">Mechanical</option>
+                    <option value="Militant">Militant (2a)</option>
+                    <option value="Innovative">Innovative (3a)</option>
+                </select>
+            </th>
+            <th>
+                <button onclick="updateFactionSetup()">Update!</button>
+            </th>
+        </tr>
+    </table>
+
     <div class="page-title">All Factions Played:</div>
     <div class="search-bar">
         Search for Player Name, Faction, or Board:
@@ -23,6 +69,7 @@
                 <th>Stars</th>
                 <th>Tiles Controlled</th>
                 <th>Resources</th>
+                <th>Total Score</th>
                 <th class="delete">Delete</th>
             </tr>
         </thead>

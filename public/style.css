@@ -1,6 +1,10 @@
 body {
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     margin: 0;
+    height: 100%;
+    background-image: none;
+    display: flex;
+    flex-flow: column;
 }
 
 /*Tittle and top of page header*/
@@ -9,7 +13,8 @@ header {
     display: flex;
     align-items: center;
     position: relative;
-    height: 20%;
+    height: min-content;
+    flex: 0 1 auto;
 }
 
 header a {
@@ -21,26 +26,32 @@ header a {
     font-weight: 100;
     margin: 0 0 0 20px;
     padding-top: 30px;
+    white-space: nowrap;
+    
 }
 
 /*The rest of the page display information*/
 .page-box{
-    height: 80%;
+    flex: 1 1 auto;
     display: flex;
 }
 /* content of each individual page stored here*/
 .content {
     margin:2%;
-    flex:4;
+    flex:5;
+    overflow-y:scroll;
+    overflow-x: hidden;
+    scroll-margin-left: 5px;
 }
 /*Links on the side of the screen. inside the page box*/
 .sidebar {
     background-color: rgb(103,69,48);
     flex: 1;
-    align-items: center;
+    width:min-content;
+    align-items: normal;
     display: flex;
     flex-direction: column;
-}
+    }
 .page-link{
     margin-top: 20%;
     color: rgb(175, 175, 175);
@@ -91,9 +102,12 @@ th{
     vertical-align: top;
     display: inline-flex;
     align-items: center;
+    justify-content: center;
+    flex-flow:wrap;
 }
 
 .game-settings{
+    margin:5px;
     flex:1;
 }
 
@@ -103,4 +117,42 @@ th{
     vertical-align: top;
     display: inline-block;
     align-items: center;
+}
+
+/* popup */
+.popup{
+    
+    position: absolute;
+    top: 41%;
+    left: 40%;
+    margin-top: -50px;
+    margin-left: -50px;
+    width: max-content;
+    height:fit-content;
+    z-index: 100;;
+    background-color: #a7a7a7;
+}
+.popup button{
+    display: block;
+    margin:  0 0 3% auto;
+    background-color: transparent;
+    font-size: 30px;
+    color: #a7a7a7;
+    background: #9a0303;
+    border-radius: 100%;
+    width: 40px;
+    height: 40px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+.popup h2{
+    margin-top: -5%;
+    margin-left: 5%;
+ }
+ .popup-text{
+    font-size: 14px;
+    text-align: center;
+    margin: 20px 0px;
+    line-height: 25px;
 }
