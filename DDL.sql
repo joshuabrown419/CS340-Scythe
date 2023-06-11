@@ -13,7 +13,7 @@ CREATE TABLE GameSetup (
 
 INSERT INTO GameSetup (expansionsUsed, gameBoard, buildScoreTile)
 VALUES ('Invaders from Afar', 'Modular', 'Buildings On Villages'),
-(NULL, 'Standard', 'Lakes Adjacent to Buildings');
+('None', 'Standard', 'Lakes Adjacent to Buildings');
 
 SELECT * FROM GameSetup;
 
