@@ -129,6 +129,14 @@ async function deleteFaction(factionID) {
                 updateCoins = faction.endingCoins
                 console.log("updateCoins is now: "+updateCoins)
             }
+            if (updateFaction == 0){
+                updateFaction = faction.faction
+                console.log("updateFaction is now: "+updateFaction)
+            }
+            if (updateBoard == ""){
+                updateBoard = faction.playerBoard
+                console.log("updateBoard is now: "+updateBoard)
+            }
         }
     })
 

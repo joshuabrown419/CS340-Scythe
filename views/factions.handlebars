@@ -6,7 +6,7 @@
 <body>
 
 {{!-- Update Faction Table --}}
-    <div class="page-title">Update Faction Table:</div>
+    <div class="page-title">Update Faction Table: Faction ID required. Blank cells will retain previous values. </div>
     <table id="board-update">
         <tr>
             <th><input type="text" placeholder="Faction ID" id="update-faction-id"></th>
@@ -20,6 +20,7 @@
             <th><input type="text" placeholder="Resources" id="update-resources"></th>
             <th>
                 <select id="update-faction">
+                    <option value="0">none-selected</option>
                     <option value="Republic of Polania">Republic of Polania</option>
                     <option value="Saxony Empire">Saxony Empire</option>
                     <option value="Crimean Khanate">Crimean Khanate</option>
@@ -33,6 +34,7 @@
             </th>
             <th>
                 <select id="update-board">
+                    <option value="0">none-selected</option>
                     <option value="Industrial">Industrial</option>
                     <option value="Agricultural">Agricultural</option>
                     <option value="Engineering">Engineering</option>

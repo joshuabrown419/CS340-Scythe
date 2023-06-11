@@ -67,16 +67,19 @@ submitGame.addEventListener('click', async function(){
             return
         }
         console.log("coins is Good!")
-        if (faction){
-            giveError("Player "+i+" coins is not filled correctly!")
+
+        if (faction == 0){
+            giveError("Player "+i+" faction is not selected!")
             return
         }
-        console.log("coins is Good!")
-        if (!isNumber(coins) || (0 > coins)){
-            giveError("Player "+i+" coins is not filled correctly!")
+        console.log("faction is Good!")
+
+        if (board == 0){
+            giveError("Player "+i+" board is not filled correctly!")
             return
         }
-        console.log("coins is Good!")
+        console.log("board is Good!")
+        
         if (!isNumber(popularity) || (popularity > 18)){
             giveError("Player "+i+" popularity is not filled correctly!")
             return
