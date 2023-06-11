@@ -133,7 +133,7 @@ async function deleteFaction(factionID) {
                 updateFaction = faction.faction
                 console.log("updateFaction is now: "+updateFaction)
             }
-            if (updateBoard == ""){
+            if (updateBoard == 0){
                 updateBoard = faction.playerBoard
                 console.log("updateBoard is now: "+updateBoard)
             }
