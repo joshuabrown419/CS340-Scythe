@@ -241,7 +241,8 @@ function handleGameSetupRequest(req, res) {
             }
             
             if(result[0]) {
-                res.send(result[0].gameSetupID)
+                console.log(result[0])
+                res.send(String(result[0].gameSetupID))
             } else {
                 db.pool.query("INSERT INTO GameSetup (expansionsUsed, gameBoard, buildScoreTile) VALUES (\"" + req.query.expansionsUsed + "\", \"" + req.query.gameBoard + "\", \"" + req.query.buildScoreTile + "\");", function(err, result) {
                     if (err) {
